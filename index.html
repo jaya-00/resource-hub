@@ -129,6 +129,24 @@
   .tab:hover, .tab[aria-selected="true"] { background: var(--berry); color: var(--paper); }
   .closed { margin: 0; padding: 28px 8px; text-align: center; font-family: var(--display); font-size: clamp(18px, 1.8vw, 26px); color: var(--berry); }
   .lunch-card .scrollbox.is-closed { max-height: none; }
+  .lead { margin: 0 auto 8px; max-width: 52ch; text-align: center; font-size: clamp(15px, 1.3vw, 19px); line-height: 1.55; }
+  .btn.soon { opacity: .55; cursor: default; }
+  .btn.soon:hover { background: rgba(244,240,233,.8); color: var(--berry); }
+  .sample-note { margin: 10px 0 0; text-align: center; font-style: italic; color: #7b5b68; font-size: 14px; }
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 26px 22px; padding: 26px 6px 8px; }
+  .postit { --r: 0deg; --c: #ffc4dc; position: relative; aspect-ratio: 1; padding: 26px 16px 14px; background: var(--c); transform: rotate(var(--r)); box-shadow: 0 12px 18px -12px rgba(138,44,76,.55), 0 1px 0 rgba(0,0,0,.05); font-family: var(--display); font-size: clamp(14px, 1.15vw, 17px); line-height: 1.38; color: #4a2736; overflow: hidden; overflow-wrap: anywhere; transition: transform .2s; min-width: 0; }
+  .postit::before { content: ""; position: absolute; top: 6px; left: 50%; width: 56px; height: 16px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,255,255,.55); }
+  .postit:hover { transform: rotate(0deg) translateY(-3px); }
+  .misc-list { display: grid; gap: 18px; }
+  .misc-card { background: rgba(255,255,255,.7); border: 1px dotted var(--berry); }
+  .misc-card summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(18px, 2.4vw, 32px); font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.6vw, 40px); letter-spacing: -.03em; color: var(--pink); }
+  .misc-card summary::-webkit-details-marker { display: none; }
+  .misc-card summary::after { content: "+"; font-family: var(--sans); font-weight: 400; font-size: 1.1em; color: var(--berry); }
+  .misc-card[open] summary::after { content: "\2212"; }
+  .misc-body { padding: 0 clamp(18px, 2.4vw, 32px) clamp(18px, 2.4vw, 32px); }
+  .misc-body p { margin: 0 0 14px; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.55; }
+  .res { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .res li { font-size: clamp(15px, 1.25vw, 18px); line-height: 1.5; padding: 12px 16px; background: #fbeef2; }
   .week { margin-top: 8px; }
   .day { display: grid; grid-template-columns: minmax(110px, 170px) minmax(0, 1fr); gap: 8px 28px; padding: 22px 0; border-top: 1px dotted rgba(138,44,76,.5); }
   .day h5 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: -.02em; line-height: 1.1; }
@@ -192,8 +210,8 @@
     <li><a href="#home" data-s="home">Home</a></li>
     <li><a href="#regs" data-s="regs">Regs</a></li>
     <li><a href="#lunch" data-s="lunch">Lunch Menu</a></li>
-    <li><a href="#events" data-s="events">Events</a></li>
-    <li><a href="#lost" data-s="lost">Lost and Found</a></li>
+    <li><a href="#bulletin" data-s="bulletin">Bulletin</a></li>
+    <li><a href="#misc" data-s="misc">Misc</a></li>
   </ul>
 </nav>
 
@@ -249,13 +267,13 @@
             <h5>Tuesday<small>Oct 13 &middot; Day 4</small></h5>
             <ul>
               <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
-              <li><b>Grade 10 Retreat.</b> Begins at 8:30 am at 406. 2:00 pm prayer service in the chapel for Grade 10 students and families. <i>Chaperones:</i> Blake, Dettling, Keogh, Santos, Scheidt, Sundaram and Williams.</li>
+              <li><b>Grade 10 Retreat.</b> Begins at 8:30 am at 406. 2:00 pm prayer service in the chapel for Grade 10 students and families.</li>
               <li><b class="t">10:00 am</b> X-period for Grades 9 and 11.</li>
               <li><b class="t">3&ndash;4:00 pm</b> Forensics practice in room 308.</li>
-              <li><b class="t">3&ndash;4:00 pm</b> Study Hall in room 321: Dr. Morgan.</li>
-              <li><b class="t">3:15 pm</b> V Cross Country practice @ Van Cortlandt Park.</li>
-              <li><b class="t">3:30 pm</b> V Soccer practice @ Central Park.</li>
-              <li><b class="t">4:00 pm</b> JV and V Tennis practice @ National Tennis Center.</li>
+              <li><b class="t">3&ndash;4:00 pm</b> Study Hall in room 321.</li>
+              <li><b class="t">3:15 pm</b> V Cross Country practice.</li>
+              <li><b class="t">3:30 pm</b> V Soccer practice.</li>
+              <li><b class="t">4:00 pm</b> JV and V Tennis practice.</li>
               <li><b class="t">4:30 pm</b> JV and V Volleyball practice @ 406.</li>
             </ul>
           </div>
@@ -263,13 +281,13 @@
             <h5>Wednesday<small>Oct 14 &middot; Day 5</small></h5>
             <ul>
               <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
-              <li><b>PSAT for grades 9&ndash;11.</b> <a href="https://docs.google.com/document/d/1hlkKL5ia1nqgef94rrXA8WWGSclIIlrIRevwS-VBbxs/edit?usp=sharing" target="_blank" rel="noopener">Proctor schedule and room rosters</a>.</li>
-              <li><b class="t">3:30 pm</b> V Soccer practice @ Randall&rsquo;s Island.</li>
-              <li><b class="t">4:00 pm</b> V Tennis practice @ Cary Leeds Tennis Center.</li>
-              <li><b class="t">4:00 pm</b> JV Tennis practice @ Central Park.</li>
-              <li><b class="t">4:15 pm</b> <b>Brain Gains TACHS Test Prep</b> at Our Lady Queen of Angels, 229 E 112th St, New York, NY 10029. <i>Volunteers:</i> Amira Austin, CJ Kim, Heide Flores plus others TBA.</li>
-              <li><b class="t">4:30 pm</b> V Volleyball practice @ TBD.</li>
-              <li><b class="t">4:45 pm</b> V Cross Country, Meet 6 @ Van Cortlandt Park.</li>
+              <li><b>PSAT for grades 9&ndash;11.</b></li>
+              <li><b class="t">3:30 pm</b> V Soccer practice.</li>
+              <li><b class="t">4:00 pm</b> V Tennis practice.</li>
+              <li><b class="t">4:00 pm</b> JV Tennis practice.</li>
+              <li><b class="t">4:15 pm</b> <b>Brain Gains TACHS Test Prep</b> at Our Lady Queen of Angels.</li>
+              <li><b class="t">4:30 pm</b> V Volleyball practice.</li>
+              <li><b class="t">4:45 pm</b> V Cross Country, Meet 6.</li>
               <li><b class="t">5:00 pm</b> JV Volleyball vs. Spence @ 406.</li>
             </ul>
           </div>
@@ -280,8 +298,8 @@
               <li><b class="t">10:00 am</b> College reps visiting: Boston University, 5th Avenue Library.</li>
               <li><b class="t">12:00 pm</b> College reps visiting: Syracuse University, South Parlor.</li>
               <li><b class="t">2:00 pm</b> College reps visiting: Marist University, South Parlor.</li>
-              <li><b class="t">3&ndash;4 pm</b> Study Hall in the library (5th Ave side): Mr. Harkin.</li>
-              <li><b class="t">4&ndash;4:30 pm</b> Keyboard lesson for Nicole Flores in the Sound Room. Instructor: Elena Dancu.</li>
+              <li><b class="t">3&ndash;4 pm</b> Study Hall in the library (5th Ave side).</li>
+              <li><b class="t">4&ndash;4:30 pm</b> Keyboard lesson in the Sound Room.</li>
               <li><b class="t">4:30 pm</b> V Volleyball practice @ 406.</li>
             </ul>
           </div>
@@ -290,17 +308,17 @@
             <ul>
               <li><b class="t">9:00 am</b> College reps visiting: Franklin and Marshall College, South Parlor.</li>
               <li><b class="t">10:00 am</b> X-period: announcements in the Theater, followed by Advisory.</li>
-              <li><b class="t">11:00 am</b> <b>Meals on Wheels</b> with Mr. Chung. <i>Students:</i> Carolina Cox, Lucy Pickhaver. <i>Parent driver:</i> Lonna Sullivan.</li>
+              <li><b class="t">11:00 am</b> <b>Meals on Wheels.</b></li>
               <li><b class="t">12:00 pm</b> College reps visiting: University of Maryland, South Parlor.</li>
               <li><b class="t">2:00 pm</b> College reps visiting: Davidson College, Basement Conference Room.</li>
               <li><b class="t">3:00&ndash;3:30 pm</b> <b>Food Recovery</b> in the Cafeteria. Support the 92nd Street &amp; 1st Ave. Community Fridge.</li>
-              <li><b class="t">3:15 pm</b> V Cross Country practice @ Central Park.</li>
+              <li><b class="t">3:15 pm</b> V Cross Country practice.</li>
               <li><b class="t">4:00 pm</b> JV Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
-              <li><b class="t">4:00 pm</b> V Tennis practice @ Queen&rsquo;s College.</li>
-              <li><b class="t">4:00 pm</b> JV Tennis practice @ Queen&rsquo;s College.</li>
-              <li><b class="t">4:30 pm</b> V Soccer vs. Saint Ann&rsquo;s @ Red Hook Field #2. Early dismissal for 2:45 pm.</li>
+              <li><b class="t">4:00 pm</b> V Tennis practice.</li>
+              <li><b class="t">4:00 pm</b> JV Tennis practice.</li>
+              <li><b class="t">4:30 pm</b> V Soccer vs. Saint Ann&rsquo;s. Early dismissal for 2:45 pm.</li>
               <li><b class="t">5:30 pm</b> V Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
-              <li><b class="t">8:00 pm&ndash;12:15 am</b> <b>Fall Midnight Run.</b> <i>Participants:</i> Jane Carey, Ashley McBrien, Annie Mikolasko, Blake Seith, Eleanor Minias, Georgia Abularrage, Isabella Navarro, Lauren Lavin, Lily White, Isabelle Bitar, Penny and Olivia Liu, Genevieve Buck. <i>Teachers:</i> Mr. Chung, Mr. O&rsquo;Hagan. <i>Parents:</i> Mr. Mikolasko, Mr. Lavin and parent TBD.</li>
+              <li><b>Fall Midnight Run</b> this evening.</li>
             </ul>
           </div>
           <div class="day">
@@ -309,7 +327,7 @@
               <li><b>ACT.</b></li>
               <li><b>H.E.A.R.T. Outreach classes resume</b> @ Building 406.</li>
               <li><b class="t">10:45</b> H.E.A.R.T. Chess &amp; Games, Casa Grown, Singing.</li>
-              <li><b class="t">11:30 am</b> <b>Play for P.I.N.K. Pickleball</b>: support breast cancer research @ 406. <i>Organizers:</i> Natalina Giammarco and Elodie Somar.</li>
+              <li><b class="t">11:30 am</b> <b>Play for P.I.N.K. Pickleball</b>: support breast cancer research @ 406.</li>
               <li><b class="t">11:45</b> C.A.S.A. Art, H.E.A.R.T. Dance and H.E.A.R.T. Lacrosse.</li>
               <li><b class="t">1:00</b> H.E.A.R.T. Swim, session 1.</li>
               <li><b class="t">2:00</b> H.E.A.R.T. Swim, session 2.</li>
@@ -317,8 +335,7 @@
             </ul>
           </div>
         </div>
-        </div>
-        <p class="note">Copied from this week&rsquo;s regs. Open the original for the latest changes.</p>
+        <p class="note">Names and some details are left out of this public copy of the regs.</p>
       </article>
       <iframe class="embed" id="regs-frame" title="This week's regs" loading="lazy" hidden></iframe>
       <div class="actions"><a class="btn" id="regs-link" href="#" target="_blank" rel="noopener" hidden>Open the regs in Google Docs</a></div>
@@ -339,26 +356,43 @@
     </div>
   </section>
 
-  <section class="page" id="events">
-    <h2>Events</h2>
+  <section class="page" id="bulletin">
+    <h2>Bulletin</h2>
     <div class="inner">
-      <div class="cone">
-        <div class="tape"></div>
-        <span class="script">under construction</span>
-        <small>Notable events are coming soon</small>
-        <div class="tape"></div>
-      </div>
+      <p class="lead">Leave a note for the upper school. Notes are up to 140 characters and are read by a teacher before they appear. Keep it kind.</p>
+      <div class="actions"><a class="btn" id="post-link" href="#" target="_blank" rel="noopener" hidden>Post a note</a><span class="btn soon" id="post-soon" aria-disabled="true">Posting opens soon</span></div>
+      <p class="sample-note" id="sample-note" hidden>These are sample notes.</p>
+      <div class="board" id="board" aria-live="polite"></div>
     </div>
   </section>
 
-  <section class="page" id="lost">
-    <h2>Lost &amp; Found</h2>
+  <section class="page" id="misc">
+    <h2>Misc</h2>
     <div class="inner">
-      <div class="cone">
-        <div class="tape"></div>
-        <span class="script">under construction</span>
-        <small>Lost and found is coming soon</small>
-        <div class="tape"></div>
+      <div class="misc-list">
+        <details class="misc-card">
+          <summary>Mental health resources</summary>
+          <div class="misc-body">
+            <p>You are not alone. If you or a friend need support, talk to a school counselor or a trusted adult. These lines are free and open any time.</p>
+            <ul class="res">
+              <li><b>988 Suicide &amp; Crisis Lifeline.</b> Call or text 988.</li>
+              <li><b>Crisis Text Line.</b> Text HOME to 741741.</li>
+              <li><b>The Trevor Project</b> (for LGBTQ+ young people). Call 1-866-488-7386 or text START to 678-678.</li>
+              <li><b>In an emergency,</b> call 911.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="misc-card">
+          <summary>Lost and found</summary>
+          <div class="misc-body">
+            <div class="cone">
+              <div class="tape"></div>
+              <span class="script">under construction</span>
+              <small>Lost and found is coming soon</small>
+              <div class="tape"></div>
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -371,13 +405,13 @@
 
 <script>
   // Paste the link to this week's regs (Google Doc, PDF, anything) between the quotes. Leave empty to hide the button.
-  var REGS_URL = "https://docs.google.com/document/d/1yeD_DHROoj4f60e6alS1u3Xn2saeYNW5vGL5NHhUpeQ/edit?usp=sharing";
+  var REGS_URL = "";
 
   // ---- EMBEDS (for hosting on your own site) ----
   // Regs: in the Google Doc choose File > Share > Publish to web > Embed, then paste the address inside src="..." here.
   // It looks like https://docs.google.com/document/d/e/XXXX/pub?embedded=true
   // Leave empty to show the copied regs below instead.
-  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vSVAI8VJswHYban7xJ9jBKXtez6k4u0sYtTckdxgcxRrQcu71tcPnAI1oMFw56VdoNDNq83OUAbwXLn/pub?embedded=true";
+  var REGS_EMBED_URL = "";
   // Lunch: paste the menu address here to try showing it in a box. Some sites refuse to be embedded; if the box
   // stays blank, leave this empty and the button still works.
   var LUNCH_EMBED_URL = "";
@@ -1111,10 +1145,62 @@
     show(wd >= 1 && wd <= LUNCH_DAYS.length ? wd - 1 : 0);
   })();
 
+  // ---- BULLETIN BOARD ----
+  // Notes come from a Google Form + Google Sheet so a teacher can approve them first (setup steps are in the chat).
+  // BULLETIN_FORM_URL: the link to your Google Form (students tap "Post a note" to open it).
+  // BULLETIN_CSV_URL: the "published to web" CSV of the sheet tab that lists ONLY approved notes.
+  var BULLETIN_FORM_URL = "https://forms.gle/BmQ5wx8vqm6fB6oB8";
+  var BULLETIN_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRrOEnxLyMCLHDoOTZV3_Zx5kf0YF9a9MBa-DELqjnmj16oP6bVv3jyrV4KJhAJibxzZX7eY5-ZFTp9/pub?gid=2026668714&single=true&output=csv";
+  var NOTE_MAX = 140;
+  var SAMPLE_NOTES = ["Congrats to the volleyball team on the win!", "Lost a blue water bottle near the library. Please check!", "Reminder: Reading Buddies is Saturday at 2:15."];
+
+  (function () {
+    var board = document.getElementById("board");
+    if (!board) return;
+    var colors = ["#ffc4dc", "#f9aecb", "#ffd6e6", "#f6bcd3"];
+    var tilts = [-2.5, 1.5, -1, 2.2, -1.8, .8];
+    function render(notes) {
+      board.textContent = "";
+      notes.forEach(function (n, i) {
+        var d = document.createElement("div");
+        d.className = "postit";
+        d.style.setProperty("--c", colors[i % colors.length]);
+        d.style.setProperty("--r", tilts[i % tilts.length] + "deg");
+        d.textContent = n;
+        board.appendChild(d);
+      });
+    }
+    function parseCSV(t) {
+      var rows = [], row = [], cur = "", q = false;
+      for (var i = 0; i < t.length; i++) {
+        var c = t.charAt(i);
+        if (q) { if (c === '"') { if (t.charAt(i + 1) === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+        else if (c === '"') q = true;
+        else if (c === ",") { row.push(cur); cur = ""; }
+        else if (c === "\n" || c === "\r") { if (c === "\r" && t.charAt(i + 1) === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+        else cur += c;
+      }
+      if (cur || row.length) { row.push(cur); rows.push(row); }
+      return rows;
+    }
+    if (BULLETIN_FORM_URL) {
+      var pl = document.getElementById("post-link");
+      pl.href = BULLETIN_FORM_URL; pl.hidden = false;
+      document.getElementById("post-soon").hidden = true;
+    }
+    function showSamples() { render(SAMPLE_NOTES); document.getElementById("sample-note").hidden = false; }
+    if (!BULLETIN_CSV_URL) { showSamples(); return; }
+    fetch(BULLETIN_CSV_URL).then(function (r) { return r.text(); }).then(function (txt) {
+      var notes = parseCSV(txt).map(function (r) { return (r[0] || "").trim().slice(0, NOTE_MAX); }).filter(Boolean).reverse().slice(0, 24);
+      if (notes.length) render(notes);
+      else { board.textContent = ""; var p = document.createElement("p"); p.className = "lead"; p.textContent = "No notes yet. Be the first to post one."; board.appendChild(p); }
+    }).catch(showSamples);
+  })();
+
   var col = document.getElementById("strip-col");
   for (var t = 0; t < 16; t++) { var im = document.createElement("img"); im.src = "assets/side_lace.png"; im.alt = ""; col.appendChild(im); }
 
-  var ids = ["home", "regs", "lunch", "events", "lost"];
+  var ids = ["home", "regs", "lunch", "bulletin", "misc"];
   var links = document.querySelectorAll(".nav a");
   var nextBtn = document.getElementById("next");
   var current = 0;
