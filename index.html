@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Upper School Resource Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Luxurious+Script&family=Josefin+Sans:wght@400;500&display=swap">
+<style>
+  /* Layout: one scrolling page, sticky five-link nav, plaid corner on the hero, plaid-and-lace strip down the left of every later section, soft white blur where sections meet. */
+  :root {
+    --paper: #f4f0e9;
+    --pink: #d487ac;
+    --blush: #f0cfcf;
+    --berry: #8a2c4c;
+    --white: #ffffff;
+    --ink: #3b2a31;
+    --display: "Lora", "Georgia", "Times New Roman", serif;
+    --script: "Luxurious Script", "Snell Roundhand", cursive;
+    --sans: "Josefin Sans", "Futura", "Century Gothic", system-ui, sans-serif;
+    --nav-h: 84px;
+    --strip-w: clamp(86px, 29vw, 560px);
+    color-scheme: light;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background-color: var(--paper);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .3  0 0 0 .09 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+    color: var(--ink);
+    font-family: var(--display);
+    overflow-x: hidden;
+  }
+  * { box-sizing: border-box; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--berry); outline-offset: 3px; }
+
+  /* nav */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    height: var(--nav-h);
+    padding: 0 clamp(16px, 8.8vw, 170px);
+    background: linear-gradient(var(--paper) 70%, rgba(244,240,233,0));
+  }
+  .nav ul {
+    list-style: none; margin: 0; padding: 40px 0 0; height: 100%;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(8px, 4vw, 140px);
+  }
+  .nav a {
+    display: block; text-align: center; text-decoration: none;
+    padding: 18px 4px 17px; min-width: 0;
+    border-top: 1px dotted var(--berry); border-bottom: 1px solid rgba(138,44,76,.45);
+    font-family: var(--sans); font-size: clamp(9px, 0.95vw, 17px); letter-spacing: .05em; text-transform: uppercase;
+    color: var(--berry); white-space: nowrap;
+    background: rgba(244,240,233,.7);
+    transition: background .2s, color .2s;
+  }
+  .nav a:hover, .nav a.on { background: var(--berry); color: var(--paper); }
+
+  main { position: relative; }
+  section { position: relative; }
+
+  /* home */
+  .home { min-height: max(640px, calc(100svh - var(--nav-h))); overflow: hidden; display: grid; place-items: center; padding: 24px 16px 100px; }
+  /* home_lace.png: scaled and positioned so the lace edge runs up from the bottom-left corner */
+  .corner { --k: 1; position: absolute; max-width: none; width: calc(94.2vw * var(--k)); height: auto; left: calc(-51.9vw * var(--k)); top: calc(100% - 37.45vw * var(--k)); pointer-events: none; }
+  /* tiny.png: the computer (top-left) and megaphone sticker (bottom-right) as one layer */
+  .tiny { position: absolute; max-width: none; left: 8.7%; top: 10.6%; width: 88.2%; height: auto; pointer-events: none; }
+
+  .title { position: relative; z-index: 2; margin: 0; font-family: var(--display); font-weight: 500; color: var(--pink); line-height: .8; text-align: left; width: max-content; max-width: 100%; }
+  .title .eyebrow { display: block; font-size: clamp(24px, 2.8vw, 52px); letter-spacing: -.01em; margin-left: 1%; margin-bottom: clamp(0px, 1vw, 20px); line-height: 1; font-weight: 500; }
+  .title .l1, .title .l2 { display: block; font-size: clamp(60px, 12vw, 230px); letter-spacing: -.05em; }
+  .title .l1 { margin-top: .26em; }
+  .title .l2 { margin-left: 30%; margin-top: .04em; }
+  .title .cap { font-family: var(--script); font-weight: 400; font-size: 2.15em; letter-spacing: 0; line-height: .5; display: inline-block; vertical-align: baseline; margin-right: -.12em; }
+  .title .l2 .cap { margin-right: .03em; }
+
+  /* inner sections */
+  .page { padding: 40px clamp(16px, 4vw, 80px) 110px calc(var(--strip-w) + clamp(16px, 3vw, 56px)); min-height: 70svh; position: relative; }
+  /* one continuous strip down the left of every page after the hero; alternate tiles are mirrored so the seams line up */
+  .rest { position: relative; }
+  .strip-col { position: absolute; left: 0; top: 0; bottom: 0; width: var(--strip-w); overflow: hidden; pointer-events: none; z-index: 6; }
+  .strip-col img { display: block; width: 100%; height: auto; }
+  .strip-col img:nth-child(even) { transform: scaleY(-1); }
+  /* soft blur where one page runs into the next, same color as the background */
+  .page::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -60px; height: 120px; z-index: 5; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(244,240,233,0), rgba(244,240,233,.75) 50%, rgba(244,240,233,0));
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
+  }
+  .page h2, .page .inner { position: relative; z-index: 1; }
+  .page h2 { font-family: var(--display); font-weight: 600; color: var(--pink); font-size: clamp(60px, 10.5vw, 190px); letter-spacing: -.06em; line-height: 1; margin: 0 0 clamp(16px, 3vw, 44px); text-align: center; text-wrap: balance; }
+  .inner { max-width: 980px; margin: 0 auto; }
+
+  /* regs sheet */
+  .sheet { background: var(--white); padding: clamp(22px, 4vw, 56px); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 40px -22px rgba(138,44,76,.35); color: #111; }
+  .sheet h3 { font-family: var(--display); font-weight: 600; font-size: clamp(17px, 1.6vw, 24px); text-align: center; margin: 0 0 clamp(18px, 2.4vw, 34px); line-height: 1.25; }
+  .sheet-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .tile { min-width: 0; padding: 22px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .tile h4 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(20px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
+  .tile p { margin: 0; font-size: clamp(14px, 1.2vw, 18px); line-height: 1.45; }
+  .tile.indigenous { background: #fbf1e4; color: #b4530f; }
+  .tile.italian { background: linear-gradient(90deg, #009246 0 33%, #f7f5f0 33% 66%, #ce2b37 66%); color: #fff; }
+  .tile.italian h4 { color: #111; text-shadow: 0 0 10px #fff, 0 0 4px #fff; }
+  .drive { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 20px 28px; align-items: center; padding: 26px 22px; border-top: 1px dotted rgba(138,44,76,.5); margin-top: 8px; }
+  .drive-mark { font-family: var(--display); font-weight: 600; font-size: clamp(26px, 3.2vw, 48px); line-height: .95; color: #2a2b6e; letter-spacing: -.03em; position: relative; padding-left: 1.5em; }
+  .drive-mark::before { content: ""; position: absolute; left: 0; top: .05em; width: 1.15em; height: 1.15em; border-radius: 50%; border: .26em solid #f08a1c; border-right-color: transparent; border-bottom-color: #f6b13a; transform: rotate(-30deg); }
+  .drive-copy { min-width: 0; }
+  .drive-copy h4 { margin: 0 0 4px; font-family: var(--display); font-weight: 600; font-size: clamp(16px, 1.5vw, 22px); }
+  .drive-copy p { margin: 0 0 4px; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.45; }
+  .note { margin: 18px 0 0; font-size: 13px; color: #6b5560; text-align: center; font-style: italic; }
+
+
+  .drive { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 28px; align-items: start; padding: 26px 22px; border-top: 1px dotted rgba(138,44,76,.5); margin-top: 16px; }
+  .drive-copy p b { font-weight: 600; }
+  .scrollbox { max-height: min(72svh, 680px); overflow-y: auto; overscroll-behavior: contain; padding-right: clamp(6px, 1.2vw, 18px); scrollbar-width: thin; scrollbar-color: var(--pink) #f3e6ea; border-top: 1px dotted rgba(138,44,76,.5); padding-top: 18px; }
+  .scrollbox::-webkit-scrollbar { width: 8px; }
+  .scrollbox::-webkit-scrollbar-track { background: #f3e6ea; border-radius: 999px; }
+  .scrollbox::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 999px; }
+  .items { display: block !important; columns: 2 220px; column-gap: 32px; }
+  .items li { break-inside: avoid; margin-bottom: 10px; }
+  .items small { display: block; font-style: italic; font-size: .88em; color: #7b5b68; }
+  .menu-date { font-style: italic; color: var(--berry); }
+  .menu-date:empty { display: none; }
+  .lunch-card .scrollbox { width: 100%; text-align: left; }
+  .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .tab { font-family: var(--sans); font-size: clamp(12px, 1vw, 15px); letter-spacing: .08em; text-transform: uppercase; color: var(--berry); background: rgba(244,240,233,.7); border: 0; border-top: 1px dotted var(--berry); border-bottom: 1px solid rgba(138,44,76,.45); padding: 12px 20px; cursor: pointer; transition: background .2s, color .2s; }
+  .tab:hover, .tab[aria-selected="true"] { background: var(--berry); color: var(--paper); }
+  .closed { margin: 0; padding: 28px 8px; text-align: center; font-family: var(--display); font-size: clamp(18px, 1.8vw, 26px); color: var(--berry); }
+  .lunch-card .scrollbox.is-closed { max-height: none; }
+  .week { margin-top: 8px; }
+  .day { display: grid; grid-template-columns: minmax(110px, 170px) minmax(0, 1fr); gap: 8px 28px; padding: 22px 0; border-top: 1px dotted rgba(138,44,76,.5); }
+  .day h5 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: -.02em; line-height: 1.1; }
+  .day h5 small { display: block; margin-top: 4px; font-weight: 400; font-style: italic; font-size: .72em; letter-spacing: 0; color: var(--berry); }
+  .day ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; min-width: 0; }
+  .day li { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.5; overflow-wrap: anywhere; }
+  .day .t { font-weight: 600; color: var(--berry); margin-right: .3em; }
+  .day a { color: var(--berry); }
+
+  .embed { display: block; width: 100%; height: min(72svh, 680px); border: 1px dotted var(--berry); background: var(--white); }
+  .lunch-card .embed { height: min(60svh, 560px); }
+
+  .btn { display: inline-block; text-decoration: none; font-family: var(--sans); font-size: clamp(12px, 1vw, 15px); letter-spacing: .08em; text-transform: uppercase; color: var(--berry); padding: 14px 28px; border: 1.5px solid var(--pink); border-radius: 999px; background: rgba(244,240,233,.8); transition: background .2s, color .2s; }
+  .btn:hover { background: var(--pink); color: var(--white); }
+  .actions { display: flex; justify-content: center; margin-top: 28px; }
+
+  /* lunch */
+  .lunch-card { background: rgba(255,255,255,.7); border: 1px dotted var(--berry); padding: clamp(24px, 4vw, 56px); text-align: center; display: grid; gap: 18px; justify-items: center; }
+  .lunch-card p { margin: 0; max-width: 46ch; font-size: clamp(15px, 1.3vw, 19px); line-height: 1.55; }
+  .script { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; color: var(--pink); font-size: clamp(26px, 3vw, 46px); line-height: 1.1; }
+
+  /* under construction */
+  .cone { background: rgba(255,255,255,.55); border: 1px dotted var(--berry); padding: clamp(28px, 4vw, 60px) 24px; text-align: center; display: grid; gap: 14px; justify-items: center; }
+  .tape { width: min(100%, 420px); height: 22px; background: repeating-linear-gradient(-45deg, var(--pink) 0 14px, var(--paper) 14px 28px); opacity: .85; }
+  .cone .script { color: var(--berry); }
+  .cone small { font-family: var(--sans); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #7b5b68; }
+
+  /* next arrow */
+  .next { position: fixed; right: clamp(16px, 2.3vw, 44px); bottom: calc(clamp(16px, 2.3vw, 44px) + env(safe-area-inset-bottom, 0px)); z-index: 30; width: 78px; height: 44px; border: 2px solid var(--pink); border-radius: 999px; background: rgba(244,240,233,.88); display: grid; place-items: center; cursor: pointer; padding: 0; transition: background .2s; }
+  .next:hover { background: var(--blush); }
+  .next svg { width: 48px; height: 20px; transition: transform .25s; }
+  .next.up svg { transform: rotate(-90deg); }
+
+  @media (max-width: 720px) {
+    :root { --nav-h: 72px; --strip-w: 24vw; }
+    .nav { overflow-x: auto; scrollbar-width: none; }
+    .nav ul { padding-top: 26px; grid-template-columns: repeat(5, max-content); gap: 10px; }
+    .nav a { padding: 14px 12px 13px; font-size: 11px; }
+    .corner { --k: 1.7; }
+    .tiny { left: 2%; top: 3%; width: 96%; }
+    .title .l2 { margin-left: 18%; }
+    .sheet-grid { grid-template-columns: minmax(0, 1fr); }
+    .drive { grid-template-columns: minmax(0, 1fr); }
+    .day { grid-template-columns: minmax(0, 1fr); }
+    .page { padding-left: calc(var(--strip-w) + 12px); padding-right: 16px; }
+    .next { width: 64px; height: 38px; }
+  }
+</style>
+<style>
+  html { color-scheme: light; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+
+<nav class="nav" aria-label="Sections">
+  <ul>
+    <li><a href="#home" data-s="home">Home</a></li>
+    <li><a href="#regs" data-s="regs">Regs</a></li>
+    <li><a href="#lunch" data-s="lunch">Lunch Menu</a></li>
+    <li><a href="#events" data-s="events">Events</a></li>
+    <li><a href="#lost" data-s="lost">Lost and Found</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="home" id="home">
+    <img class="corner" src="assets/home_lace.png" alt="">
+    <img class="tiny" src="assets/tiny.png" alt="">
+    <h1 class="title">
+      <span class="eyebrow">Upper School</span>
+      <span class="l1"><span class="cap">R</span>esource</span>
+      <span class="l2"><span class="cap">H</span>ub</span>
+    </h1>
+  </section>
+
+  <div class="rest">
+  <div class="strip-col" id="strip-col" aria-hidden="true"></div>
+  <section class="page" id="regs">
+    <h2>Regs</h2>
+    <div class="inner">
+      <article class="sheet">
+        <h3>Upper School Regulations<br><span id="regs-dates">October 11 &ndash; 17, 2026</span></h3>
+        <div class="scrollbox" tabindex="0" role="region" aria-label="This week's regs, scrollable">
+        <div class="sheet-grid">
+          <div class="tile indigenous">
+            <h4>Indigenous Peoples&rsquo; Day</h4>
+            <p>Book display featuring Indigenous authors, including <em>Earth Keeper</em>, <em>Spirit Run</em> and <em>There There</em>.</p>
+          </div>
+          <div class="tile italian">
+            <h4>Happy Italian Heritage Month</h4>
+          </div>
+        </div>
+
+        <div class="drive">
+          <div class="drive-mark">Midnight Run</div>
+          <div class="drive-copy">
+            <h4>Clothing Drive &middot; October 9 &ndash; 16, 2026</h4>
+            <p><b>Donation bins:</b> Driveway #1 and #7.</p>
+            <p><b>GENTLY used or NEW ADULT clothing needed:</b> light and medium weight coats, sweaters and fleeces, hooded sweatshirts and regular sweatshirts, long sleeve t-shirts, flannel shirts, pants (denim preferred), sneakers, work or hiking boots, shoes. NEW tube socks, underwear and t-shirts. Baseball caps.</p>
+            <p><b>Very important:</b> duffel bags or backpacks.</p>
+            <p>ONLY ADULT clothes for men and women. No children&rsquo;s clothing.</p>
+          </div>
+        </div>
+
+        <div class="week">
+          <div class="day">
+            <h5>Monday<small>Oct 12</small></h5>
+            <ul>
+              <li><b class="t">No school.</b> Columbus / Indigenous Peoples&rsquo; / Italian-American Heritage Day.</li>
+              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
+            </ul>
+          </div>
+          <div class="day">
+            <h5>Tuesday<small>Oct 13 &middot; Day 4</small></h5>
+            <ul>
+              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
+              <li><b>Grade 10 Retreat.</b> Begins at 8:30 am at 406. 2:00 pm prayer service in the chapel for Grade 10 students and families. <i>Chaperones:</i> Blake, Dettling, Keogh, Santos, Scheidt, Sundaram and Williams.</li>
+              <li><b class="t">10:00 am</b> X-period for Grades 9 and 11.</li>
+              <li><b class="t">3&ndash;4:00 pm</b> Forensics practice in room 308.</li>
+              <li><b class="t">3&ndash;4:00 pm</b> Study Hall in room 321: Dr. Morgan.</li>
+              <li><b class="t">3:15 pm</b> V Cross Country practice @ Van Cortlandt Park.</li>
+              <li><b class="t">3:30 pm</b> V Soccer practice @ Central Park.</li>
+              <li><b class="t">4:00 pm</b> JV and V Tennis practice @ National Tennis Center.</li>
+              <li><b class="t">4:30 pm</b> JV and V Volleyball practice @ 406.</li>
+            </ul>
+          </div>
+          <div class="day">
+            <h5>Wednesday<small>Oct 14 &middot; Day 5</small></h5>
+            <ul>
+              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
+              <li><b>PSAT for grades 9&ndash;11.</b> <a href="https://docs.google.com/document/d/1hlkKL5ia1nqgef94rrXA8WWGSclIIlrIRevwS-VBbxs/edit?usp=sharing" target="_blank" rel="noopener">Proctor schedule and room rosters</a>.</li>
+              <li><b class="t">3:30 pm</b> V Soccer practice @ Randall&rsquo;s Island.</li>
+              <li><b class="t">4:00 pm</b> V Tennis practice @ Cary Leeds Tennis Center.</li>
+              <li><b class="t">4:00 pm</b> JV Tennis practice @ Central Park.</li>
+              <li><b class="t">4:15 pm</b> <b>Brain Gains TACHS Test Prep</b> at Our Lady Queen of Angels, 229 E 112th St, New York, NY 10029. <i>Volunteers:</i> Amira Austin, CJ Kim, Heide Flores plus others TBA.</li>
+              <li><b class="t">4:30 pm</b> V Volleyball practice @ TBD.</li>
+              <li><b class="t">4:45 pm</b> V Cross Country, Meet 6 @ Van Cortlandt Park.</li>
+              <li><b class="t">5:00 pm</b> JV Volleyball vs. Spence @ 406.</li>
+            </ul>
+          </div>
+          <div class="day">
+            <h5>Thursday<small>Oct 15 &middot; Day 6</small></h5>
+            <ul>
+              <li><b class="t">6:30 am</b> V Soccer practice @ 406.</li>
+              <li><b class="t">10:00 am</b> College reps visiting: Boston University, 5th Avenue Library.</li>
+              <li><b class="t">12:00 pm</b> College reps visiting: Syracuse University, South Parlor.</li>
+              <li><b class="t">2:00 pm</b> College reps visiting: Marist University, South Parlor.</li>
+              <li><b class="t">3&ndash;4 pm</b> Study Hall in the library (5th Ave side): Mr. Harkin.</li>
+              <li><b class="t">4&ndash;4:30 pm</b> Keyboard lesson for Nicole Flores in the Sound Room. Instructor: Elena Dancu.</li>
+              <li><b class="t">4:30 pm</b> V Volleyball practice @ 406.</li>
+            </ul>
+          </div>
+          <div class="day">
+            <h5>Friday<small>Oct 16 &middot; Day 1</small></h5>
+            <ul>
+              <li><b class="t">9:00 am</b> College reps visiting: Franklin and Marshall College, South Parlor.</li>
+              <li><b class="t">10:00 am</b> X-period: announcements in the Theater, followed by Advisory.</li>
+              <li><b class="t">11:00 am</b> <b>Meals on Wheels</b> with Mr. Chung. <i>Students:</i> Carolina Cox, Lucy Pickhaver. <i>Parent driver:</i> Lonna Sullivan.</li>
+              <li><b class="t">12:00 pm</b> College reps visiting: University of Maryland, South Parlor.</li>
+              <li><b class="t">2:00 pm</b> College reps visiting: Davidson College, Basement Conference Room.</li>
+              <li><b class="t">3:00&ndash;3:30 pm</b> <b>Food Recovery</b> in the Cafeteria. Support the 92nd Street &amp; 1st Ave. Community Fridge.</li>
+              <li><b class="t">3:15 pm</b> V Cross Country practice @ Central Park.</li>
+              <li><b class="t">4:00 pm</b> JV Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
+              <li><b class="t">4:00 pm</b> V Tennis practice @ Queen&rsquo;s College.</li>
+              <li><b class="t">4:00 pm</b> JV Tennis practice @ Queen&rsquo;s College.</li>
+              <li><b class="t">4:30 pm</b> V Soccer vs. Saint Ann&rsquo;s @ Red Hook Field #2. Early dismissal for 2:45 pm.</li>
+              <li><b class="t">5:30 pm</b> V Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
+              <li><b class="t">8:00 pm&ndash;12:15 am</b> <b>Fall Midnight Run.</b> <i>Participants:</i> Jane Carey, Ashley McBrien, Annie Mikolasko, Blake Seith, Eleanor Minias, Georgia Abularrage, Isabella Navarro, Lauren Lavin, Lily White, Isabelle Bitar, Penny and Olivia Liu, Genevieve Buck. <i>Teachers:</i> Mr. Chung, Mr. O&rsquo;Hagan. <i>Parents:</i> Mr. Mikolasko, Mr. Lavin and parent TBD.</li>
+            </ul>
+          </div>
+          <div class="day">
+            <h5>Saturday<small>Oct 17</small></h5>
+            <ul>
+              <li><b>ACT.</b></li>
+              <li><b>H.E.A.R.T. Outreach classes resume</b> @ Building 406.</li>
+              <li><b class="t">10:45</b> H.E.A.R.T. Chess &amp; Games, Casa Grown, Singing.</li>
+              <li><b class="t">11:30 am</b> <b>Play for P.I.N.K. Pickleball</b>: support breast cancer research @ 406. <i>Organizers:</i> Natalina Giammarco and Elodie Somar.</li>
+              <li><b class="t">11:45</b> C.A.S.A. Art, H.E.A.R.T. Dance and H.E.A.R.T. Lacrosse.</li>
+              <li><b class="t">1:00</b> H.E.A.R.T. Swim, session 1.</li>
+              <li><b class="t">2:00</b> H.E.A.R.T. Swim, session 2.</li>
+              <li><b class="t">2:15</b> Reading Buddies.</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+        <p class="note">Copied from this week&rsquo;s regs. Open the original for the latest changes.</p>
+      </article>
+      <iframe class="embed" id="regs-frame" title="This week's regs" loading="lazy" hidden></iframe>
+      <div class="actions"><a class="btn" id="regs-link" href="#" target="_blank" rel="noopener" hidden>Open the regs in Google Docs</a></div>
+    </div>
+  </section>
+
+  <section class="page" id="lunch">
+    <h2>Lunch</h2>
+    <div class="inner">
+      <div class="lunch-card">
+        <span class="script">what&rsquo;s for lunch?</span>
+        <div class="tabs" id="lunch-tabs" role="tablist" aria-label="Day of the week"></div>
+        <p class="menu-date" id="menu-date"></p>
+        <div class="scrollbox" id="menu-panel" role="tabpanel" tabindex="0"></div>
+        <iframe class="embed" id="lunch-frame" title="Lunch menu" loading="lazy" hidden></iframe>
+        <a class="btn" href="https://www.sagedining.com/sites/conventofthesacredheart/menu" target="_blank" rel="noopener">See the full menu on Sage Dining</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="events">
+    <h2>Events</h2>
+    <div class="inner">
+      <div class="cone">
+        <div class="tape"></div>
+        <span class="script">under construction</span>
+        <small>Notable events are coming soon</small>
+        <div class="tape"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="lost">
+    <h2>Lost &amp; Found</h2>
+    <div class="inner">
+      <div class="cone">
+        <div class="tape"></div>
+        <span class="script">under construction</span>
+        <small>Lost and found is coming soon</small>
+        <div class="tape"></div>
+      </div>
+    </div>
+  </section>
+  </div>
+</main>
+
+<button class="next" id="next" type="button" aria-label="Go to next section">
+  <svg viewBox="0 0 48 20" fill="none" stroke="#d487ac" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 H44 M35 2 L45 10 L35 18"/></svg>
+</button>
+
+<script>
+  // Paste the link to this week's regs (Google Doc, PDF, anything) between the quotes. Leave empty to hide the button.
+  var REGS_URL = "https://docs.google.com/document/d/1yeD_DHROoj4f60e6alS1u3Xn2saeYNW5vGL5NHhUpeQ/edit?usp=sharing";
+
+  // ---- EMBEDS (for hosting on your own site) ----
+  // Regs: in the Google Doc choose File > Share > Publish to web > Embed, then paste the address inside src="..." here.
+  // It looks like https://docs.google.com/document/d/e/XXXX/pub?embedded=true
+  // Leave empty to show the copied regs below instead.
+  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vSVAI8VJswHYban7xJ9jBKXtez6k4u0sYtTckdxgcxRrQcu71tcPnAI1oMFw56VdoNDNq83OUAbwXLn/pub?embedded=true";
+  // Lunch: paste the menu address here to try showing it in a box. Some sites refuse to be embedded; if the box
+  // stays blank, leave this empty and the button still works.
+  var LUNCH_EMBED_URL = "";
+
+  if (REGS_EMBED_URL) {
+    var rf = document.getElementById("regs-frame");
+    rf.src = REGS_EMBED_URL; rf.hidden = false;
+    document.querySelector("#regs .sheet").hidden = true;
+  }
+  if (LUNCH_EMBED_URL) {
+    var lf = document.getElementById("lunch-frame");
+    lf.src = LUNCH_EMBED_URL; lf.hidden = false;
+  }
+
+  // ---- LUNCH MENU (edit each week) ----
+  // One entry per weekday. A day with "closed" shows that message; a day with "stations" shows the menu.
+  // Each station is [name, [[dish, line], ...]]. Dishes fill the left column first, then the right.
+  var LUNCH_DAYS = [
+  {
+    "tab": "Mon",
+    "name": "Monday, October 12",
+    "closed": "No school today, so there is no lunch."
+  },
+  {
+    "tab": "Tue",
+    "name": "Tuesday, October 13",
+    "stations": [
+      [
+        "Specials",
+        [
+          [
+            "Walking Tacos",
+            "Seasonings"
+          ]
+        ]
+      ],
+      [
+        "Soups",
+        [
+          [
+            "Chicken Noodle Soup",
+            "Ladle & Co."
+          ],
+          [
+            "Creamy Tomato-Basil Soup",
+            "Ladle & Co."
+          ]
+        ]
+      ],
+      [
+        "Salads",
+        [
+          [
+            "Egg Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Build-Your-Own Tex-Mex Salad",
+            "Improvisations®"
+          ],
+          [
+            "Asparagus Salad",
+            "Improvisations®"
+          ],
+          [
+            "Pesto Pasta Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Curried Autumn Freekeh Salad",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Deli",
+        [
+          [
+            "Corned Beef",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Swiss Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Roasted Poblano Hummus",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Herb Grilled Chicken Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Havarti Cheese",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Entrées",
+        [
+          [
+            "House-Roasted Beef",
+            "Free Style™"
+          ],
+          [
+            "Tofu Cacciatore",
+            "The Main Ingredient®"
+          ],
+          [
+            "Soy Sauce-Roasted Tofu (GF)",
+            "Improvisations®"
+          ],
+          [
+            "Sausage and Sun-Dried Tomato Pasta",
+            "The Main Ingredient®"
+          ],
+          [
+            "Chicken, Bacon, and Ranch Wrap",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Sides and Vegetables",
+        [
+          [
+            "White Rice",
+            "Free Style™"
+          ],
+          [
+            "Steamed Peas and Carrots",
+            "The Main Ingredient®"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Mexican-Style Street Corn Casserole",
+            "Trattoria"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ],
+          [
+            "Steamed Spinach",
+            "Free Style™"
+          ],
+          [
+            "Fresh-Baked Garlic Bread",
+            "The Main Ingredient®"
+          ],
+          [
+            "Pasta",
+            "Trattoria"
+          ],
+          [
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Desserts",
+        [
+          [
+            "Assorted Fresh-Cut Fruit",
+            "Improvisations®"
+          ],
+          [
+            "Fudge Brownies",
+            "P.S."
+          ],
+          [
+            "100% Apple Juice",
+            "Splashes"
+          ],
+          [
+            "Chocolate Chip Cookies",
+            "P.S."
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "tab": "Wed",
+    "name": "Wednesday, October 14",
+    "stations": [
+      [
+        "Specials",
+        [
+          [
+            "Salsa Criolla (Peruvian Red Onion Relish)",
+            "Special Events"
+          ],
+          [
+            "Aji Verde",
+            "Special Events"
+          ]
+        ]
+      ],
+      [
+        "Soups",
+        [
+          [
+            "Chicken Noodle Soup",
+            "Ladle & Co."
+          ],
+          [
+            "Creamy Tomato-Basil Soup",
+            "Ladle & Co."
+          ]
+        ]
+      ],
+      [
+        "Salads",
+        [
+          [
+            "Egg Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Build-Your-Own Tex-Mex Salad",
+            "Improvisations®"
+          ],
+          [
+            "Street Corn Salad",
+            "Improvisations®"
+          ],
+          [
+            "Pesto Pasta Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Curried Autumn Freekeh Salad",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Deli",
+        [
+          [
+            "Corned Beef",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Swiss Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Roasted Poblano Hummus",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Herb Grilled Chicken Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Havarti Cheese",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Entrées",
+        [
+          [
+            "BBQ Chicken Drumettes",
+            "Free Style™"
+          ],
+          [
+            "Black Bean and Quinoa Stuffed Tomatoes",
+            "The Main Ingredient®"
+          ],
+          [
+            "Chicken, Bacon, and Ranch Wrap",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Southern Oven-Fried Chicken",
+            "The Main Ingredient®"
+          ],
+          [
+            "Sweet and Spicy Meatballs",
+            "Trattoria"
+          ],
+          [
+            "Soy Sauce-Roasted Tofu (GF)",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Sides and Vegetables",
+        [
+          [
+            "Basmati Rice",
+            "Free Style™"
+          ],
+          [
+            "Yuca Fries",
+            "The Main Ingredient®"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Steamed Lima Beans",
+            "Trattoria"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ],
+          [
+            "Steamed Peas",
+            "Free Style™"
+          ],
+          [
+            "Garlic-Roasted Carrots",
+            "The Main Ingredient®"
+          ],
+          [
+            "Pasta",
+            "Trattoria"
+          ],
+          [
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Desserts",
+        [
+          [
+            "Assorted Fresh-Cut Fruit",
+            "Improvisations®"
+          ],
+          [
+            "100% Apple Juice",
+            "Splashes"
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "tab": "Thu",
+    "name": "Thursday, October 15",
+    "stations": [
+      [
+        "Today’s Menu Features",
+        [
+          [
+            "Cuisine From Northern India",
+            "Uncharted"
+          ]
+        ]
+      ],
+      [
+        "Specials",
+        [
+          [
+            "Pasta Bar",
+            "Seasonings"
+          ],
+          [
+            "Zhug (Middle Eastern Hot Sauce)",
+            "Special Events"
+          ],
+          [
+            "Naan Dipping Bar",
+            "Special Events"
+          ]
+        ]
+      ],
+      [
+        "Soups",
+        [
+          [
+            "Chicken Noodle Soup",
+            "Ladle & Co."
+          ],
+          [
+            "Creamy Tomato-Basil Soup",
+            "Ladle & Co."
+          ]
+        ]
+      ],
+      [
+        "Salads",
+        [
+          [
+            "Egg Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Build-Your-Own Tex-Mex Salad",
+            "Improvisations®"
+          ],
+          [
+            "Arugula and Roasted Red Pepper Salad",
+            "Improvisations®"
+          ],
+          [
+            "Pesto Pasta Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Spiced Lentil Salad",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Deli",
+        [
+          [
+            "Corned Beef",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Swiss Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Roasted Poblano Hummus",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Herb Grilled Chicken Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Havarti Cheese",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Entrées",
+        [
+          [
+            "Baked Chicken",
+            "Free Style™"
+          ],
+          [
+            "Delhi Chicken Korma",
+            "Uncharted"
+          ],
+          [
+            "Aloo Gobi (Indian Potatoes and Cauliflower)",
+            "Uncharted"
+          ],
+          [
+            "Soy Sauce-Roasted Tofu (GF)",
+            "Improvisations®"
+          ],
+          [
+            "Italian Sausage with Peppers and Onions",
+            "Trattoria"
+          ],
+          [
+            "Indian Butter Chickpeas",
+            "Uncharted"
+          ],
+          [
+            "Chicken, Bacon, and Ranch Wrap",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Sides and Vegetables",
+        [
+          [
+            "Yuca Fries with House-Made Sazón",
+            "Free Style™"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Steamed Peas",
+            "Trattoria"
+          ],
+          [
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Garlic-Roasted Carrots",
+            "Free Style™"
+          ],
+          [
+            "Pasta",
+            "Trattoria"
+          ],
+          [
+            "Jeera Basmati Rice",
+            "Uncharted"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ]
+        ]
+      ],
+      [
+        "Desserts",
+        [
+          [
+            "Assorted Fresh-Cut Fruit",
+            "Improvisations®"
+          ],
+          [
+            "100% Apple Juice",
+            "Splashes"
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "tab": "Fri",
+    "name": "Friday, October 16",
+    "stations": [
+      [
+        "Specials",
+        [
+          [
+            "Tater Tot Topping Bar",
+            "Special Events"
+          ]
+        ]
+      ],
+      [
+        "Soups",
+        [
+          [
+            "Chicken Noodle Soup",
+            "Ladle & Co."
+          ],
+          [
+            "Creamy Tomato-Basil Soup",
+            "Ladle & Co."
+          ]
+        ]
+      ],
+      [
+        "Salads",
+        [
+          [
+            "Egg Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Build-Your-Own Tex-Mex Salad",
+            "Improvisations®"
+          ],
+          [
+            "Arugula and Roasted Red Pepper Salad",
+            "Improvisations®"
+          ],
+          [
+            "Pesto Pasta Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Spiced Lentil Salad",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Deli",
+        [
+          [
+            "Corned Beef",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Swiss Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Roasted Poblano Hummus",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Herb Grilled Chicken Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Havarti Cheese",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Entrées",
+        [
+          [
+            "Baked Chicken Breast",
+            "Free Style™"
+          ],
+          [
+            "Grilled Cheese with Bacon Jam",
+            "The Main Ingredient®"
+          ],
+          [
+            "Chicken, Bacon, and Ranch Wrap",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Grilled Cheese on Texas Toast",
+            "The Main Ingredient®"
+          ],
+          [
+            "Grilled Tuscan Chicken Breast",
+            "Trattoria"
+          ],
+          [
+            "Soy Sauce-Roasted Tofu (GF)",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Sides and Vegetables",
+        [
+          [
+            "Garlic-Roasted Potatoes",
+            "Free Style™"
+          ],
+          [
+            "Tater Tots",
+            "The Main Ingredient®"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Assorted Roasted Vegetables",
+            "Free Style™, Trattoria"
+          ],
+          [
+            "Lemon-Garlic Broccoli",
+            "The Main Ingredient®"
+          ],
+          [
+            "Pasta",
+            "Trattoria"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ]
+        ]
+      ],
+      [
+        "Desserts",
+        [
+          [
+            "Assorted Fresh-Cut Fruit",
+            "Improvisations®"
+          ],
+          [
+            "Oreo® Rice Krispies® Treats",
+            "P.S."
+          ],
+          [
+            "100% Apple Juice",
+            "Splashes"
+          ],
+          [
+            "Udi’s® Gluten-Free Snickerdoodle Cookies",
+            "P.S."
+          ]
+        ]
+      ]
+    ]
+  }
+];
+
+  (function () {
+    var tabs = document.getElementById("lunch-tabs");
+    var panel = document.getElementById("menu-panel");
+    var dateEl = document.getElementById("menu-date");
+    if (!tabs || !panel) return;
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+    function show(i) {
+      var d = LUNCH_DAYS[i];
+      Array.prototype.forEach.call(tabs.children, function (b, j) { b.setAttribute("aria-selected", j === i ? "true" : "false"); b.tabIndex = j === i ? 0 : -1; });
+      dateEl.textContent = d.name;
+      panel.setAttribute("aria-labelledby", "tab-" + i);
+      panel.textContent = "";
+      if (d.closed) { panel.appendChild(el("p", "closed", d.closed)); panel.classList.add("is-closed"); return; }
+      panel.classList.remove("is-closed");
+      panel.scrollTop = 0;
+      d.stations.forEach(function (s) {
+        var row = el("div", "day"); row.appendChild(el("h5", "", s[0]));
+        var ul = el("ul", "items");
+        s[1].forEach(function (it) { var li = el("li", "", it[0]); li.appendChild(el("small", "", it[1])); ul.appendChild(li); });
+        row.appendChild(ul); panel.appendChild(row);
+      });
+    }
+    LUNCH_DAYS.forEach(function (d, i) {
+      var b = el("button", "tab", d.tab); b.type = "button"; b.id = "tab-" + i; b.setAttribute("role", "tab");
+      b.addEventListener("click", function () { show(i); });
+      b.addEventListener("keydown", function (e) {
+        var n = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : null;
+        if (n === null) return; n = (n + LUNCH_DAYS.length) % LUNCH_DAYS.length; show(n); tabs.children[n].focus();
+      });
+      tabs.appendChild(b);
+    });
+    var wd = new Date().getDay();
+    show(wd >= 1 && wd <= LUNCH_DAYS.length ? wd - 1 : 0);
+  })();
+
+  var col = document.getElementById("strip-col");
+  for (var t = 0; t < 16; t++) { var im = document.createElement("img"); im.src = "assets/side_lace.png"; im.alt = ""; col.appendChild(im); }
+
+  var ids = ["home", "regs", "lunch", "events", "lost"];
+  var links = document.querySelectorAll(".nav a");
+  var nextBtn = document.getElementById("next");
+  var current = 0;
+
+  var regsLink = document.getElementById("regs-link");
+  if (REGS_URL) { regsLink.href = REGS_URL; regsLink.hidden = false; }
+
+  function update() {
+    var y = window.scrollY + window.innerHeight * 0.35;
+    current = 0;
+    ids.forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top + window.scrollY <= y) current = i;
+    });
+    var nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    if (nearBottom) current = ids.length - 1;
+    links.forEach(function (a) { a.classList.toggle("on", a.dataset.s === ids[current]); });
+    var last = current === ids.length - 1;
+    nextBtn.classList.toggle("up", last);
+    nextBtn.setAttribute("aria-label", last ? "Back to top" : "Go to next section");
+  }
+
+  nextBtn.addEventListener("click", function () {
+    var target = current === ids.length - 1 ? "home" : ids[current + 1];
+    document.getElementById(target).scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+</script>
+
+</body>
+</html>
