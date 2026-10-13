@@ -359,7 +359,7 @@
   <section class="page" id="bulletin">
     <h2>Bulletin</h2>
     <div class="inner">
-      <p class="lead">Leave a note for the upper school! Notes are approved before they appear. Keep in mind the Goals and Criteria.</p>
+      <p class="lead">Leave a note for the upper school. Notes are up to 140 characters and are read by a teacher before they appear. Keep it kind.</p>
       <div class="actions"><a class="btn" id="post-link" href="#" target="_blank" rel="noopener" hidden>Post a note</a><span class="btn soon" id="post-soon" aria-disabled="true">Posting opens soon</span></div>
       <p class="sample-note" id="sample-note" hidden>These are sample notes.</p>
       <div class="board" id="board" aria-live="polite"></div>
@@ -411,7 +411,7 @@
   // Regs: in the Google Doc choose File > Share > Publish to web > Embed, then paste the address inside src="..." here.
   // It looks like https://docs.google.com/document/d/e/XXXX/pub?embedded=true
   // Leave empty to show the copied regs below instead.
-  var REGS_EMBED_URL = "";
+  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vSVAI8VJswHYban7xJ9jBKXtez6k4u0sYtTckdxgcxRrQcu71tcPnAI1oMFw56VdoNDNq83OUAbwXLn/pub?embedded=true";
   // Lunch: paste the menu address here to try showing it in a box. Some sites refuse to be embedded; if the box
   // stays blank, leave this empty and the button still works.
   var LUNCH_EMBED_URL = "";
@@ -1191,7 +1191,7 @@
     function showSamples() { render(SAMPLE_NOTES); document.getElementById("sample-note").hidden = false; }
     if (!BULLETIN_CSV_URL) { showSamples(); return; }
     fetch(BULLETIN_CSV_URL).then(function (r) { return r.text(); }).then(function (txt) {
-      var notes = parseCSV(txt).map(function (r) { return (r[0] || "").trim().slice(0, NOTE_MAX); }).filter(Boolean).reverse().slice(0, 24);
+      var notes = parseCSV(txt).map(function (r) { return (r[0] || "").trim().slice(0, NOTE_MAX); }).filter(function (n) { return n && !/^#(N\/A|REF!|ERROR!|VALUE!|NAME\?|DIV\/0!|NULL!)/i.test(n); }).reverse().slice(0, 24);
       if (notes.length) render(notes);
       else { board.textContent = ""; var p = document.createElement("p"); p.className = "lead"; p.textContent = "No notes yet. Be the first to post one."; board.appendChild(p); }
     }).catch(showSamples);
