@@ -5,3 +5,4 @@ to-do list
 - add social worker email
 - add teacher emails
 - also i noticed the bulletin stopped working when i tried adding a note and approving one
+- is the array pulling from the sage website or do we have to manually add it?
