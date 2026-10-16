@@ -1,5 +1,5 @@
 to-do list
-- fix url and domain (jaya u need to give loren access to repo options if that's possible)
+- fix url and domain
 - get the lost and found feature running
 - make it so that only @cshnyc.org can access it
 - add social worker email
