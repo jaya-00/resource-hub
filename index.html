@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Upper School Resource Hub</title>
+<meta name="description" content="Regs, lunch menu, bulletin board and more for the Upper School.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Upper School Resource Hub">
+<meta property="og:description" content="Regs, lunch menu, bulletin board and more for the Upper School.">
+<meta property="og:image" content="https://jaya-00.github.io/us-resource-hub/assets/link-preview.jpg">
+<meta property="og:url" content="https://jaya-00.github.io/us-resource-hub/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jaya-00.github.io/us-resource-hub/assets/link-preview.jpg">
+<link rel="icon" href="assets/link-preview.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Luxurious+Script&family=Josefin+Sans:wght@400;500&display=swap">
 <style>
   /* Layout: one scrolling page, sticky five-link nav, plaid corner on the hero, plaid-and-lace strip down the left of every later section, soft white blur where sections meet. */
@@ -359,7 +368,7 @@
   <section class="page" id="bulletin">
     <h2>Bulletin</h2>
     <div class="inner">
-      <p class="lead">Leave a note for the upper school! Notes are up to 140 characters and are approved before they appear. Keep it kind.</p>
+      <p class="lead">Leave a note for the upper school. Notes are up to 140 characters and are read by a teacher before they appear. Keep it kind.</p>
       <div class="actions"><a class="btn" id="post-link" href="#" target="_blank" rel="noopener" hidden>Post a note</a><span class="btn soon" id="post-soon" aria-disabled="true">Posting opens soon</span></div>
       <p class="sample-note" id="sample-note" hidden>These are sample notes.</p>
       <div class="board" id="board" aria-live="polite"></div>
@@ -385,12 +394,14 @@
         <details class="misc-card">
           <summary>Lost and found</summary>
           <div class="misc-body">
-            <div class="cone">
+            <div class="cone" id="lost-soon">
               <div class="tape"></div>
               <span class="script">under construction</span>
               <small>Lost and found is coming soon</small>
               <div class="tape"></div>
             </div>
+            <iframe class="embed" id="lost-frame" title="Lost and found photos" loading="lazy" hidden></iframe>
+            <p class="note"><a id="lost-link" href="#" target="_blank" rel="noopener" hidden>Open the folder in a new tab</a></p>
           </div>
         </details>
       </div>
@@ -411,9 +422,17 @@
   // Regs: in the Google Doc choose File > Share > Publish to web > Embed, then paste the address inside src="..." here.
   // It looks like https://docs.google.com/document/d/e/XXXX/pub?embedded=true
   // Leave empty to show the copied regs below instead.
-  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vSVAI8VJswHYban7xJ9jBKXtez6k4u0sYtTckdxgcxRrQcu71tcPnAI1oMFw56VdoNDNq83OUAbwXLn/pub?embedded=true";
+  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vTUKuT9hyRCEeayQ6zZHLAsqP6jjBOkT3vtVIOFFh-4fozoTxOiyQ-H_fa8li5DXYqXcVFahqb9P0WK/pub?embedded=true";
   // Lunch: paste the menu address here to try showing it in a box. Some sites refuse to be embedded; if the box
   // stays blank, leave this empty and the button still works.
+  // Lost and found: paste your Drive folder's ID (the long text after /folders/ in its link). Folder must be shared as "Anyone with the link: Viewer".
+  var LOST_FOLDER_ID = "";
+  if (LOST_FOLDER_ID) {
+    var lfr = document.getElementById("lost-frame");
+    lfr.src = "https://drive.google.com/embeddedfolderview?id=" + LOST_FOLDER_ID + "#grid"; lfr.hidden = false;
+    document.getElementById("lost-soon").hidden = true;
+    var ll = document.getElementById("lost-link"); ll.href = "https://drive.google.com/drive/folders/" + LOST_FOLDER_ID; ll.hidden = false;
+  }
   var LUNCH_EMBED_URL = "";
 
   if (REGS_EMBED_URL) {
@@ -432,31 +451,21 @@
   var LUNCH_DAYS = [
   {
     "tab": "Mon",
-    "name": "Monday, October 12",
-    "closed": "No school today, so there is no lunch."
-  },
-  {
-    "tab": "Tue",
-    "name": "Tuesday, October 13",
+    "name": "Monday, October 19",
     "stations": [
-      [
-        "Specials",
-        [
-          [
-            "Walking Tacos",
-            "Seasonings"
-          ]
-        ]
-      ],
       [
         "Soups",
         [
           [
-            "Chicken Noodle Soup",
+            "Beef Stew",
+            "The Main Ingredient®"
+          ],
+          [
+            "Tortilla Soup",
             "Ladle & Co."
           ],
           [
-            "Creamy Tomato-Basil Soup",
+            "Thai Coconut Chicken Noodle Soup",
             "Ladle & Co."
           ]
         ]
@@ -465,23 +474,23 @@
         "Salads",
         [
           [
-            "Egg Salad",
+            "Potato Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Tex-Mex Salad",
+            "Build-Your-Own Harvest Salad",
             "Improvisations®"
           ],
           [
-            "Asparagus Salad",
+            "Chili Lo Mein Noodle Salad",
             "Improvisations®"
           ],
           [
-            "Pesto Pasta Salad",
+            "Lemon-Dill Tuna Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Curried Autumn Freekeh Salad",
+            "Sweet Autumn Kale Salad",
             "Improvisations®"
           ]
         ]
@@ -490,7 +499,7 @@
         "Deli",
         [
           [
-            "Corned Beef",
+            "House-Roasted Maple Turkey Breast",
             "The Classic Cuts Deli®"
           ],
           [
@@ -498,15 +507,15 @@
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Poblano Hummus",
+            "Garlic Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Herb Grilled Chicken Breast",
+            "Pepperoni",
             "The Classic Cuts Deli®"
           ],
           [
-            "Havarti Cheese",
+            "Pepper Jack Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -515,24 +524,28 @@
         "Entrées",
         [
           [
-            "House-Roasted Beef",
+            "Beef and Potato Stew",
             "Free Style™"
           ],
           [
-            "Tofu Cacciatore",
-            "The Main Ingredient®"
+            "Chicken and Turkey Sausage Paella",
+            "Trattoria"
           ],
           [
-            "Soy Sauce-Roasted Tofu (GF)",
+            "Blackened Chicken Breast",
             "Improvisations®"
           ],
           [
-            "Sausage and Sun-Dried Tomato Pasta",
+            "BBQ Seitan Cutlets",
             "The Main Ingredient®"
           ],
           [
-            "Chicken, Bacon, and Ranch Wrap",
+            "Corned Beef and Swiss on Kaiser Roll",
             "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet Chili Tofu",
+            "Improvisations®"
           ]
         ]
       ],
@@ -540,19 +553,15 @@
         "Sides and Vegetables",
         [
           [
-            "White Rice",
-            "Free Style™"
+            "Steamed Peas and Carrots",
+            "The Main Ingredient®, Free Style™"
           ],
           [
-            "Steamed Peas and Carrots",
+            "Garlic Mashed Potatoes",
             "The Main Ingredient®"
           ],
           [
-            "Marinara Sauce",
-            "Trattoria"
-          ],
-          [
-            "Mexican-Style Street Corn Casserole",
+            "Pasta",
             "Trattoria"
           ],
           [
@@ -560,12 +569,169 @@
             "Splashes"
           ],
           [
-            "Steamed Spinach",
+            "Roasted Corn",
+            "Free Style™, Trattoria"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Desserts",
+        [
+          [
+            "Assorted Fresh-Cut Fruit",
+            "Improvisations®"
+          ],
+          [
+            "100% Apple Juice",
+            "Splashes"
+          ]
+        ]
+      ]
+    ]
+  },
+  {
+    "tab": "Tue",
+    "name": "Tuesday, October 20",
+    "stations": [
+      [
+        "Specials",
+        [
+          [
+            "Educational Seasonings: An Abundance of Apples",
+            "Seasonings"
+          ],
+          [
+            "Chicken & Waffle Topping Bar",
+            "Special Events"
+          ]
+        ]
+      ],
+      [
+        "Soups",
+        [
+          [
+            "Thai Coconut Chicken Noodle Soup",
+            "Ladle & Co."
+          ],
+          [
+            "Tortilla Soup",
+            "Ladle & Co."
+          ]
+        ]
+      ],
+      [
+        "Salads",
+        [
+          [
+            "Potato Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Build-Your-Own Harvest Salad",
+            "Improvisations®"
+          ],
+          [
+            "Chili Lo Mein Noodle Salad",
+            "Improvisations®"
+          ],
+          [
+            "Lemon-Dill Tuna Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet Autumn Kale Salad",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Deli",
+        [
+          [
+            "House-Roasted Maple Turkey Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Swiss Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Garlic Hummus",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Pepperoni",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Pepper Jack Cheese",
+            "The Classic Cuts Deli®"
+          ]
+        ]
+      ],
+      [
+        "Entrées",
+        [
+          [
+            "House-Roasted Herbed Chicken",
             "Free Style™"
           ],
           [
-            "Fresh-Baked Garlic Bread",
+            "Seitan and Waffles with Cayenne Syrup",
             "The Main Ingredient®"
+          ],
+          [
+            "Corned Beef and Swiss on Kaiser Roll",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet Chili Tofu",
+            "Improvisations®"
+          ],
+          [
+            "Chicken and Waffles with Cayenne Syrup",
+            "The Main Ingredient®"
+          ],
+          [
+            "Beef Stroganoff with Egg Noodles",
+            "Trattoria"
+          ],
+          [
+            "Blackened Chicken Breast",
+            "Improvisations®"
+          ]
+        ]
+      ],
+      [
+        "Sides and Vegetables",
+        [
+          [
+            "Sautéed Kale with Garlic",
+            "The Main Ingredient®, Free Style™"
+          ],
+          [
+            "Marinara Sauce",
+            "Trattoria"
+          ],
+          [
+            "Grilled Squash with Chimichurri Sauce",
+            "Trattoria"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ],
+          [
+            "Pasta with Olive Oil (GF)",
+            "Free Style™"
           ],
           [
             "Pasta",
@@ -585,16 +751,8 @@
             "Improvisations®"
           ],
           [
-            "Fudge Brownies",
-            "P.S."
-          ],
-          [
             "100% Apple Juice",
             "Splashes"
-          ],
-          [
-            "Chocolate Chip Cookies",
-            "P.S."
           ]
         ]
       ]
@@ -602,17 +760,13 @@
   },
   {
     "tab": "Wed",
-    "name": "Wednesday, October 14",
+    "name": "Wednesday, October 21",
     "stations": [
       [
         "Specials",
         [
           [
-            "Salsa Criolla (Peruvian Red Onion Relish)",
-            "Special Events"
-          ],
-          [
-            "Aji Verde",
+            "Hot Dog Toppings Bar",
             "Special Events"
           ]
         ]
@@ -621,11 +775,11 @@
         "Soups",
         [
           [
-            "Chicken Noodle Soup",
+            "Thai Coconut Chicken Noodle Soup",
             "Ladle & Co."
           ],
           [
-            "Creamy Tomato-Basil Soup",
+            "Tortilla Soup",
             "Ladle & Co."
           ]
         ]
@@ -634,23 +788,23 @@
         "Salads",
         [
           [
-            "Egg Salad",
+            "Potato Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Tex-Mex Salad",
+            "Build-Your-Own Harvest Salad",
             "Improvisations®"
           ],
           [
-            "Street Corn Salad",
+            "Chili Lo Mein Noodle Salad",
             "Improvisations®"
           ],
           [
-            "Pesto Pasta Salad",
+            "Lemon-Dill Tuna Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Curried Autumn Freekeh Salad",
+            "Sweet Autumn Kale Salad",
             "Improvisations®"
           ]
         ]
@@ -659,7 +813,7 @@
         "Deli",
         [
           [
-            "Corned Beef",
+            "House-Roasted Maple Turkey Breast",
             "The Classic Cuts Deli®"
           ],
           [
@@ -667,15 +821,15 @@
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Poblano Hummus",
+            "Garlic Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Herb Grilled Chicken Breast",
+            "Pepperoni",
             "The Classic Cuts Deli®"
           ],
           [
-            "Havarti Cheese",
+            "Pepper Jack Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -684,27 +838,31 @@
         "Entrées",
         [
           [
-            "BBQ Chicken Drumettes",
+            "Herbed Chicken Breast",
             "Free Style™"
           ],
           [
-            "Black Bean and Quinoa Stuffed Tomatoes",
-            "The Main Ingredient®"
+            "All-Beef Hot Dogs without Bun",
+            "Crossroads"
           ],
           [
-            "Chicken, Bacon, and Ranch Wrap",
+            "Corned Beef and Swiss on Kaiser Roll",
             "The Classic Cuts Deli®"
           ],
           [
-            "Southern Oven-Fried Chicken",
-            "The Main Ingredient®"
+            "Sweet Chili Tofu",
+            "Improvisations®"
           ],
           [
-            "Sweet and Spicy Meatballs",
+            "Jerk Chicken Pasta",
             "Trattoria"
           ],
           [
-            "Soy Sauce-Roasted Tofu (GF)",
+            "Black Bean Patties with Guacamole and Salsa",
+            "Crossroads"
+          ],
+          [
+            "Blackened Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -713,40 +871,36 @@
         "Sides and Vegetables",
         [
           [
-            "Basmati Rice",
+            "Rosemary-Garlic Roasted Potatoes",
             "Free Style™"
-          ],
-          [
-            "Yuca Fries",
-            "The Main Ingredient®"
           ],
           [
             "Marinara Sauce",
             "Trattoria"
           ],
           [
-            "Steamed Lima Beans",
-            "Trattoria"
+            "French Fries",
+            "Crossroads"
           ],
           [
-            "Strawberry Kiwi Juice",
-            "Splashes"
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
           ],
           [
-            "Steamed Peas",
-            "Free Style™"
-          ],
-          [
-            "Garlic-Roasted Carrots",
-            "The Main Ingredient®"
+            "Roasted Corn on the Cob",
+            "Free Style™, Trattoria"
           ],
           [
             "Pasta",
             "Trattoria"
           ],
           [
-            "Roasted Vegetables",
-            "The Classic Cuts Deli®"
+            "Roasted Carrots and Shallots with Thyme",
+            "Crossroads"
+          ],
+          [
+            "Strawberry Kiwi Juice",
+            "Splashes"
           ]
         ]
       ],
@@ -767,31 +921,14 @@
   },
   {
     "tab": "Thu",
-    "name": "Thursday, October 15",
+    "name": "Thursday, October 22",
     "stations": [
       [
-        "Today’s Menu Features",
+        "Today's Menu Features",
         [
           [
-            "Cuisine From Northern India",
+            "Cuisine from Thailand",
             "Uncharted"
-          ]
-        ]
-      ],
-      [
-        "Specials",
-        [
-          [
-            "Pasta Bar",
-            "Seasonings"
-          ],
-          [
-            "Zhug (Middle Eastern Hot Sauce)",
-            "Special Events"
-          ],
-          [
-            "Naan Dipping Bar",
-            "Special Events"
           ]
         ]
       ],
@@ -799,11 +936,11 @@
         "Soups",
         [
           [
-            "Chicken Noodle Soup",
+            "Thai Coconut Chicken Noodle Soup",
             "Ladle & Co."
           ],
           [
-            "Creamy Tomato-Basil Soup",
+            "Tortilla Soup",
             "Ladle & Co."
           ]
         ]
@@ -812,23 +949,23 @@
         "Salads",
         [
           [
-            "Egg Salad",
+            "Potato Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Tex-Mex Salad",
-            "Improvisations®"
-          ],
-          [
-            "Arugula and Roasted Red Pepper Salad",
-            "Improvisations®"
-          ],
-          [
-            "Pesto Pasta Salad",
+            "Build-Your-Own Harvest Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Spiced Lentil Salad",
+            "Thai Rice Salad (GF)",
+            "Improvisations®"
+          ],
+          [
+            "Lemon-Dill Tuna Salad",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Spicy Korean Cucumber Salad",
             "Improvisations®"
           ]
         ]
@@ -837,7 +974,7 @@
         "Deli",
         [
           [
-            "Corned Beef",
+            "House-Roasted Maple Turkey Breast",
             "The Classic Cuts Deli®"
           ],
           [
@@ -845,15 +982,15 @@
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Poblano Hummus",
+            "Garlic Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Herb Grilled Chicken Breast",
+            "Pepperoni",
             "The Classic Cuts Deli®"
           ],
           [
-            "Havarti Cheese",
+            "Pepper Jack Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -862,32 +999,28 @@
         "Entrées",
         [
           [
-            "Baked Chicken",
+            "Seasoned Ground Beef",
             "Free Style™"
           ],
           [
-            "Delhi Chicken Korma",
+            "Green Chile Tofu and Mushrooms",
             "Uncharted"
           ],
           [
-            "Aloo Gobi (Indian Potatoes and Cauliflower)",
-            "Uncharted"
-          ],
-          [
-            "Soy Sauce-Roasted Tofu (GF)",
+            "Blackened Chicken Breast",
             "Improvisations®"
           ],
           [
-            "Italian Sausage with Peppers and Onions",
-            "Trattoria"
-          ],
-          [
-            "Indian Butter Chickpeas",
+            "Kaeng Pa Neua (Country-Style Curry with Ground Beef and Green Beans)",
             "Uncharted"
           ],
           [
-            "Chicken, Bacon, and Ranch Wrap",
+            "Corned Beef and Swiss on Kaiser Roll",
             "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet Chili Tofu",
+            "Improvisations®"
           ]
         ]
       ],
@@ -895,36 +1028,40 @@
         "Sides and Vegetables",
         [
           [
-            "Yuca Fries with House-Made Sazón",
-            "Free Style™"
+            "Jasmine Rice",
+            "Uncharted, Free Style™"
           ],
           [
             "Marinara Sauce",
             "Trattoria"
           ],
           [
-            "Steamed Peas",
+            "Assorted Potstickers",
             "Trattoria"
           ],
           [
-            "Roasted Vegetables",
-            "The Classic Cuts Deli®"
+            "Green Curry Butternut Squash",
+            "Uncharted"
           ],
           [
-            "Garlic-Roasted Carrots",
-            "Free Style™"
+            "Strawberry Kiwi Juice",
+            "Splashes"
+          ],
+          [
+            "Steamed Sugar Snap Peas",
+            "Free Style™, Trattoria"
           ],
           [
             "Pasta",
             "Trattoria"
           ],
           [
-            "Jeera Basmati Rice",
-            "Uncharted"
+            "Baked Vegetarian Egg Rolls",
+            "Trattoria"
           ],
           [
-            "Strawberry Kiwi Juice",
-            "Splashes"
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
           ]
         ]
       ],
@@ -945,13 +1082,17 @@
   },
   {
     "tab": "Fri",
-    "name": "Friday, October 16",
+    "name": "Friday, October 23",
     "stations": [
       [
         "Specials",
         [
           [
-            "Tater Tot Topping Bar",
+            "Sour Cream",
+            "Special Events"
+          ],
+          [
+            "House-Made Fire-Roasted Salsa Verde",
             "Special Events"
           ]
         ]
@@ -960,11 +1101,11 @@
         "Soups",
         [
           [
-            "Chicken Noodle Soup",
+            "Thai Coconut Chicken Noodle Soup",
             "Ladle & Co."
           ],
           [
-            "Creamy Tomato-Basil Soup",
+            "Tortilla Soup",
             "Ladle & Co."
           ]
         ]
@@ -973,23 +1114,23 @@
         "Salads",
         [
           [
-            "Egg Salad",
+            "Potato Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Tex-Mex Salad",
+            "Build-Your-Own Harvest Salad",
             "Improvisations®"
           ],
           [
-            "Arugula and Roasted Red Pepper Salad",
+            "Thai Rice Salad (GF)",
             "Improvisations®"
           ],
           [
-            "Pesto Pasta Salad",
+            "Lemon-Dill Tuna Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Spiced Lentil Salad",
+            "Spicy Korean Cucumber Salad",
             "Improvisations®"
           ]
         ]
@@ -998,7 +1139,7 @@
         "Deli",
         [
           [
-            "Corned Beef",
+            "House-Roasted Maple Turkey Breast",
             "The Classic Cuts Deli®"
           ],
           [
@@ -1006,15 +1147,15 @@
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Poblano Hummus",
+            "Garlic Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Herb Grilled Chicken Breast",
+            "Pepperoni",
             "The Classic Cuts Deli®"
           ],
           [
-            "Havarti Cheese",
+            "Pepper Jack Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -1023,27 +1164,31 @@
         "Entrées",
         [
           [
-            "Baked Chicken Breast",
+            "Grilled BBQ Chicken Thighs",
             "Free Style™"
           ],
           [
-            "Grilled Cheese with Bacon Jam",
-            "The Main Ingredient®"
-          ],
-          [
-            "Chicken, Bacon, and Ranch Wrap",
-            "The Classic Cuts Deli®"
-          ],
-          [
-            "Grilled Cheese on Texas Toast",
-            "The Main Ingredient®"
-          ],
-          [
-            "Grilled Tuscan Chicken Breast",
+            "Jalapeño-Lime Shrimp Quesadillas",
             "Trattoria"
           ],
           [
-            "Soy Sauce-Roasted Tofu (GF)",
+            "Corned Beef and Swiss on Kaiser Roll",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet Chili Tofu",
+            "Improvisations®"
+          ],
+          [
+            "Chicken Fajita Quesadillas",
+            "Trattoria"
+          ],
+          [
+            "Baked BBQ Chicken Thighs",
+            "Craft BBQ"
+          ],
+          [
+            "Blackened Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -1052,32 +1197,40 @@
         "Sides and Vegetables",
         [
           [
-            "Garlic-Roasted Potatoes",
+            "Roasted Corn",
             "Free Style™"
-          ],
-          [
-            "Tater Tots",
-            "The Main Ingredient®"
           ],
           [
             "Marinara Sauce",
             "Trattoria"
           ],
           [
+            "Assorted Roasted Vegetables",
+            "Trattoria"
+          ],
+          [
+            "Slow-Simmered Collard Greens",
+            "Craft BBQ"
+          ],
+          [
             "Roasted Vegetables",
             "The Classic Cuts Deli®"
           ],
           [
-            "Assorted Roasted Vegetables",
-            "Free Style™, Trattoria"
-          ],
-          [
-            "Lemon-Garlic Broccoli",
-            "The Main Ingredient®"
+            "House-Made BBQ Baked Beans",
+            "Craft BBQ, Free Style™"
           ],
           [
             "Pasta",
             "Trattoria"
+          ],
+          [
+            "Scalloped Potatoes",
+            "Craft BBQ"
+          ],
+          [
+            "Buttermilk Cornbread with Honey Butter",
+            "Craft BBQ"
           ],
           [
             "Strawberry Kiwi Juice",
@@ -1093,7 +1246,7 @@
             "Improvisations®"
           ],
           [
-            "Oreo® Rice Krispies® Treats",
+            "Assorted Desserts",
             "P.S."
           ],
           [
