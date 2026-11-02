@@ -102,27 +102,9 @@
   .page h2 { font-family: var(--display); font-weight: 600; color: var(--pink); font-size: clamp(60px, 10.5vw, 190px); letter-spacing: -.06em; line-height: 1; margin: 0 0 clamp(16px, 3vw, 44px); text-align: center; text-wrap: balance; }
   .inner { max-width: 980px; margin: 0 auto; }
 
-  /* regs sheet */
-  .sheet { background: var(--white); padding: clamp(22px, 4vw, 56px); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 40px -22px rgba(138,44,76,.35); color: #111; }
-  .sheet h3 { font-family: var(--display); font-weight: 600; font-size: clamp(17px, 1.6vw, 24px); text-align: center; margin: 0 0 clamp(18px, 2.4vw, 34px); line-height: 1.25; }
-  .sheet-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .tile { min-width: 0; padding: 22px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-  .tile h4 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(20px, 2.2vw, 34px); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
-  .tile p { margin: 0; font-size: clamp(14px, 1.2vw, 18px); line-height: 1.45; }
-  .tile.indigenous { background: #fbf1e4; color: #b4530f; }
-  .tile.italian { background: linear-gradient(90deg, #009246 0 33%, #f7f5f0 33% 66%, #ce2b37 66%); color: #fff; }
-  .tile.italian h4 { color: #111; text-shadow: 0 0 10px #fff, 0 0 4px #fff; }
-  .drive { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 20px 28px; align-items: center; padding: 26px 22px; border-top: 1px dotted rgba(138,44,76,.5); margin-top: 8px; }
-  .drive-mark { font-family: var(--display); font-weight: 600; font-size: clamp(26px, 3.2vw, 48px); line-height: .95; color: #2a2b6e; letter-spacing: -.03em; position: relative; padding-left: 1.5em; }
-  .drive-mark::before { content: ""; position: absolute; left: 0; top: .05em; width: 1.15em; height: 1.15em; border-radius: 50%; border: .26em solid #f08a1c; border-right-color: transparent; border-bottom-color: #f6b13a; transform: rotate(-30deg); }
-  .drive-copy { min-width: 0; }
-  .drive-copy h4 { margin: 0 0 4px; font-family: var(--display); font-weight: 600; font-size: clamp(16px, 1.5vw, 22px); }
-  .drive-copy p { margin: 0 0 4px; font-size: clamp(14px, 1.2vw, 17px); line-height: 1.45; }
   .note { margin: 18px 0 0; font-size: 13px; color: #6b5560; text-align: center; font-style: italic; }
 
 
-  .drive { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 28px; align-items: start; padding: 26px 22px; border-top: 1px dotted rgba(138,44,76,.5); margin-top: 16px; }
-  .drive-copy p b { font-weight: 600; }
   .scrollbox { max-height: min(72svh, 680px); overflow-y: auto; overscroll-behavior: contain; padding-right: clamp(6px, 1.2vw, 18px); scrollbar-width: thin; scrollbar-color: var(--pink) #f3e6ea; border-top: 1px dotted rgba(138,44,76,.5); padding-top: 18px; }
   .scrollbox::-webkit-scrollbar { width: 8px; }
   .scrollbox::-webkit-scrollbar-track { background: #f3e6ea; border-radius: 999px; }
@@ -156,14 +138,11 @@
   .misc-body p { margin: 0 0 14px; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.55; }
   .res { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
   .res li { font-size: clamp(15px, 1.25vw, 18px); line-height: 1.5; padding: 12px 16px; background: #fbeef2; }
-  .week { margin-top: 8px; }
   .day { display: grid; grid-template-columns: minmax(110px, 170px) minmax(0, 1fr); gap: 8px 28px; padding: 22px 0; border-top: 1px dotted rgba(138,44,76,.5); }
   .day h5 { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: -.02em; line-height: 1.1; }
   .day h5 small { display: block; margin-top: 4px; font-weight: 400; font-style: italic; font-size: .72em; letter-spacing: 0; color: var(--berry); }
   .day ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; min-width: 0; }
   .day li { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.5; overflow-wrap: anywhere; }
-  .day .t { font-weight: 600; color: var(--berry); margin-right: .3em; }
-  .day a { color: var(--berry); }
 
   .embed { display: block; width: 100%; height: min(72svh, 680px); border: 1px dotted var(--berry); background: var(--white); }
   .lunch-card .embed { height: min(60svh, 560px); }
@@ -197,8 +176,6 @@
     .corner { --k: 1.7; }
     .tiny { left: 2%; top: 3%; width: 96%; }
     .title .l2 { margin-left: 18%; }
-    .sheet-grid { grid-template-columns: minmax(0, 1fr); }
-    .drive { grid-template-columns: minmax(0, 1fr); }
     .day { grid-template-columns: minmax(0, 1fr); }
     .page { padding-left: calc(var(--strip-w) + 12px); padding-right: 16px; }
     .next { width: 64px; height: 38px; }
@@ -240,114 +217,8 @@
   <section class="page" id="regs">
     <h2>Regs</h2>
     <div class="inner">
-      <article class="sheet">
-        <h3>Upper School Regulations<br><span id="regs-dates">October 11 &ndash; 17, 2026</span></h3>
-        <div class="scrollbox" tabindex="0" role="region" aria-label="This week's regs, scrollable">
-        <div class="sheet-grid">
-          <div class="tile indigenous">
-            <h4>Indigenous Peoples&rsquo; Day</h4>
-            <p>Book display featuring Indigenous authors, including <em>Earth Keeper</em>, <em>Spirit Run</em> and <em>There There</em>.</p>
-          </div>
-          <div class="tile italian">
-            <h4>Happy Italian Heritage Month</h4>
-          </div>
-        </div>
-
-        <div class="drive">
-          <div class="drive-mark">Midnight Run</div>
-          <div class="drive-copy">
-            <h4>Clothing Drive &middot; October 9 &ndash; 16, 2026</h4>
-            <p><b>Donation bins:</b> Driveway #1 and #7.</p>
-            <p><b>GENTLY used or NEW ADULT clothing needed:</b> light and medium weight coats, sweaters and fleeces, hooded sweatshirts and regular sweatshirts, long sleeve t-shirts, flannel shirts, pants (denim preferred), sneakers, work or hiking boots, shoes. NEW tube socks, underwear and t-shirts. Baseball caps.</p>
-            <p><b>Very important:</b> duffel bags or backpacks.</p>
-            <p>ONLY ADULT clothes for men and women. No children&rsquo;s clothing.</p>
-          </div>
-        </div>
-
-        <div class="week">
-          <div class="day">
-            <h5>Monday<small>Oct 12</small></h5>
-            <ul>
-              <li><b class="t">No school.</b> Columbus / Indigenous Peoples&rsquo; / Italian-American Heritage Day.</li>
-              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
-            </ul>
-          </div>
-          <div class="day">
-            <h5>Tuesday<small>Oct 13 &middot; Day 4</small></h5>
-            <ul>
-              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
-              <li><b>Grade 10 Retreat.</b> Begins at 8:30 am at 406. 2:00 pm prayer service in the chapel for Grade 10 students and families.</li>
-              <li><b class="t">10:00 am</b> X-period for Grades 9 and 11.</li>
-              <li><b class="t">3&ndash;4:00 pm</b> Forensics practice in room 308.</li>
-              <li><b class="t">3&ndash;4:00 pm</b> Study Hall in room 321.</li>
-              <li><b class="t">3:15 pm</b> V Cross Country practice.</li>
-              <li><b class="t">3:30 pm</b> V Soccer practice.</li>
-              <li><b class="t">4:00 pm</b> JV and V Tennis practice.</li>
-              <li><b class="t">4:30 pm</b> JV and V Volleyball practice @ 406.</li>
-            </ul>
-          </div>
-          <div class="day">
-            <h5>Wednesday<small>Oct 14 &middot; Day 5</small></h5>
-            <ul>
-              <li>Grade 12 College Visit days 10/9&ndash;10/14.</li>
-              <li><b>PSAT for grades 9&ndash;11.</b></li>
-              <li><b class="t">3:30 pm</b> V Soccer practice.</li>
-              <li><b class="t">4:00 pm</b> V Tennis practice.</li>
-              <li><b class="t">4:00 pm</b> JV Tennis practice.</li>
-              <li><b class="t">4:15 pm</b> <b>Brain Gains TACHS Test Prep</b> at Our Lady Queen of Angels.</li>
-              <li><b class="t">4:30 pm</b> V Volleyball practice.</li>
-              <li><b class="t">4:45 pm</b> V Cross Country, Meet 6.</li>
-              <li><b class="t">5:00 pm</b> JV Volleyball vs. Spence @ 406.</li>
-            </ul>
-          </div>
-          <div class="day">
-            <h5>Thursday<small>Oct 15 &middot; Day 6</small></h5>
-            <ul>
-              <li><b class="t">6:30 am</b> V Soccer practice @ 406.</li>
-              <li><b class="t">10:00 am</b> College reps visiting: Boston University, 5th Avenue Library.</li>
-              <li><b class="t">12:00 pm</b> College reps visiting: Syracuse University, South Parlor.</li>
-              <li><b class="t">2:00 pm</b> College reps visiting: Marist University, South Parlor.</li>
-              <li><b class="t">3&ndash;4 pm</b> Study Hall in the library (5th Ave side).</li>
-              <li><b class="t">4&ndash;4:30 pm</b> Keyboard lesson in the Sound Room.</li>
-              <li><b class="t">4:30 pm</b> V Volleyball practice @ 406.</li>
-            </ul>
-          </div>
-          <div class="day">
-            <h5>Friday<small>Oct 16 &middot; Day 1</small></h5>
-            <ul>
-              <li><b class="t">9:00 am</b> College reps visiting: Franklin and Marshall College, South Parlor.</li>
-              <li><b class="t">10:00 am</b> X-period: announcements in the Theater, followed by Advisory.</li>
-              <li><b class="t">11:00 am</b> <b>Meals on Wheels.</b></li>
-              <li><b class="t">12:00 pm</b> College reps visiting: University of Maryland, South Parlor.</li>
-              <li><b class="t">2:00 pm</b> College reps visiting: Davidson College, Basement Conference Room.</li>
-              <li><b class="t">3:00&ndash;3:30 pm</b> <b>Food Recovery</b> in the Cafeteria. Support the 92nd Street &amp; 1st Ave. Community Fridge.</li>
-              <li><b class="t">3:15 pm</b> V Cross Country practice.</li>
-              <li><b class="t">4:00 pm</b> JV Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
-              <li><b class="t">4:00 pm</b> V Tennis practice.</li>
-              <li><b class="t">4:00 pm</b> JV Tennis practice.</li>
-              <li><b class="t">4:30 pm</b> V Soccer vs. Saint Ann&rsquo;s. Early dismissal for 2:45 pm.</li>
-              <li><b class="t">5:30 pm</b> V Volleyball vs. Saint Ann&rsquo;s @ 406.</li>
-              <li><b>Fall Midnight Run</b> this evening.</li>
-            </ul>
-          </div>
-          <div class="day">
-            <h5>Saturday<small>Oct 17</small></h5>
-            <ul>
-              <li><b>ACT.</b></li>
-              <li><b>H.E.A.R.T. Outreach classes resume</b> @ Building 406.</li>
-              <li><b class="t">10:45</b> H.E.A.R.T. Chess &amp; Games, Casa Grown, Singing.</li>
-              <li><b class="t">11:30 am</b> <b>Play for P.I.N.K. Pickleball</b>: support breast cancer research @ 406.</li>
-              <li><b class="t">11:45</b> C.A.S.A. Art, H.E.A.R.T. Dance and H.E.A.R.T. Lacrosse.</li>
-              <li><b class="t">1:00</b> H.E.A.R.T. Swim, session 1.</li>
-              <li><b class="t">2:00</b> H.E.A.R.T. Swim, session 2.</li>
-              <li><b class="t">2:15</b> Reading Buddies.</li>
-            </ul>
-          </div>
-        </div>
-        <p class="note">Names and some details are left out of this public copy of the regs.</p>
-      </article>
+      <!-- The regs link is set at the top of the script below (REGS_EMBED_URL). -->
       <iframe class="embed" id="regs-frame" title="This week's regs" loading="lazy" hidden></iframe>
-      <div class="actions"><a class="btn" id="regs-link" href="#" target="_blank" rel="noopener" hidden>Open the regs in Google Docs</a></div>
     </div>
   </section>
 
@@ -415,14 +286,14 @@
 </button>
 
 <script>
-  // Paste the link to this week's regs (Google Doc, PDF, anything) between the quotes. Leave empty to hide the button.
-  var REGS_URL = "";
+  // ============================================================
+  // WEEKLY: PASTE THE NEW REGS LINK BETWEEN THE QUOTES BELOW.
+  // In the Google Doc: File > Share > Publish to web > Embed > Publish,
+  // then copy ONLY the address inside src="..." (it ends with /pub?embedded=true).
+  // ============================================================
+  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vSTxMdOmMMalt2rIEbVzcJ214p_RCuMFCRthXZmfH_DiD-OOuDpUv-gNnEmD7XgsHe8n_gTFnjOviL8/pub?embedded=true";
 
-  // ---- EMBEDS (for hosting on your own site) ----
-  // Regs: in the Google Doc choose File > Share > Publish to web > Embed, then paste the address inside src="..." here.
-  // It looks like https://docs.google.com/document/d/e/XXXX/pub?embedded=true
-  // Leave empty to show the copied regs below instead.
-  var REGS_EMBED_URL = "https://docs.google.com/document/d/e/2PACX-1vQkXHXpTbsXShr8Mwq1lBzt49lS6KyQJin1ydnr3VZnahRc6M7vRyFdQWKc_Z4fZhpRYZ84LyYdPdmL/pub?embedded=true";
+  // ---- OTHER EMBEDS ----
   // Lunch: paste the menu address here to try showing it in a box. Some sites refuse to be embedded; if the box
   // stays blank, leave this empty and the button still works.
   // Lost and found: paste your Drive folder's ID (the long text after /folders/ in its link). Folder must be shared as "Anyone with the link: Viewer".
@@ -438,7 +309,6 @@
   if (REGS_EMBED_URL) {
     var rf = document.getElementById("regs-frame");
     rf.src = REGS_EMBED_URL; rf.hidden = false;
-    document.querySelector("#regs .sheet").hidden = true;
   }
   if (LUNCH_EMBED_URL) {
     var lf = document.getElementById("lunch-frame");
@@ -451,7 +321,7 @@
   var LUNCH_DAYS = [
   {
     "tab": "Mon",
-    "name": "Monday, October 26",
+    "name": "Monday, November 2",
     "stations": [
       [
         "Soups",
@@ -461,7 +331,7 @@
             "Ladle & Co."
           ],
           [
-            "Vegetable Chili",
+            "Corn Soup",
             "Ladle & Co."
           ]
         ]
@@ -470,23 +340,23 @@
         "Salads",
         [
           [
-            "Montreal Chicken Salad",
+            "Mediterranean Penne Pasta Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Winter Salad",
+            "Build-Your-Own Roasted Vegetable Salad",
             "Improvisations®"
           ],
           [
-            "Spicy Korean Cucumber Salad",
+            "Kale Caesar Salad",
             "Improvisations®"
           ],
           [
-            "Macaroni Salad",
+            "Curried Cranberry-Apple Chicken Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Bulgur and Chickpea Salad",
+            "Quinoa, Chickpea, and Sun-Dried Tomato Salad",
             "Improvisations®"
           ]
         ]
@@ -495,23 +365,23 @@
         "Deli",
         [
           [
-            "Ham",
+            "Sweet and Spicy Smoked Chicken Breast",
             "The Classic Cuts Deli®"
           ],
           [
-            "Cheddar Cheese",
+            "Provolone Cheese",
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Red Pepper Hummus",
+            "Roasted Jalapeño-Cilantro Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Garlic-Roasted Beef",
+            "Salami",
             "The Classic Cuts Deli®"
           ],
           [
-            "Swiss Cheese",
+            "American Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -520,31 +390,35 @@
         "Entrées",
         [
           [
-            "Sweet and Spicy Chicken Breast",
-            "The Main Ingredient®, Free Style™"
-          ],
-          [
-            "Bruschetta Pasta",
-            "The Main Ingredient®"
-          ],
-          [
-            "Turkey and Salami on Focaccia",
-            "The Classic Cuts Deli®"
-          ],
-          [
-            "Montreal Rotisserie Chicken Breast",
-            "Improvisations®"
-          ],
-          [
             "Rotini with Marinara (GF)",
             "Free Style™"
           ],
           [
-            "Pierogies with Bacon and Broccoli",
+            "Chicken Parmesan Sandwich",
+            "The Main Ingredient®"
+          ],
+          [
+            "Fettuccine Alfredo with Cajun Salmon",
             "Trattoria"
           ],
           [
-            "Miso-Glazed Tofu",
+            "Chile-Roasted Tofu",
+            "Improvisations®"
+          ],
+          [
+            "House-Roasted Cajun Chicken Breast",
+            "Free Style™"
+          ],
+          [
+            "Eggplant Parmesan Sub",
+            "The Main Ingredient®"
+          ],
+          [
+            "Caprese Pesto Panini on Baguette",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Fajita Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -553,15 +427,15 @@
         "Sides and Vegetables",
         [
           [
-            "Roasted Butternut Squash",
+            "Roasted Parsnips",
             "The Main Ingredient®, Free Style™"
           ],
           [
-            "Marinara Sauce",
-            "Trattoria"
+            "Baked Waffle Fries",
+            "The Main Ingredient®"
           ],
           [
-            "Creamed Spinach",
+            "Pasta",
             "Trattoria"
           ],
           [
@@ -569,11 +443,11 @@
             "Splashes"
           ],
           [
-            "Breadsticks",
-            "The Main Ingredient®"
+            "Steamed Spinach",
+            "Free Style™, Trattoria"
           ],
           [
-            "Pasta",
+            "Marinara Sauce",
             "Trattoria"
           ],
           [
@@ -599,13 +473,13 @@
   },
   {
     "tab": "Tue",
-    "name": "Tuesday, October 27",
+    "name": "Tuesday, November 3",
     "stations": [
       [
         "Today's Menu Features",
         [
           [
-            "Cuisine From Puerto Rico",
+            "Cuisine From Mexico",
             "Uncharted"
           ]
         ]
@@ -614,12 +488,12 @@
         "Specials",
         [
           [
-            "Poke Bowl Bar",
-            "Seasonings"
+            "Taco Toppings Bar",
+            "Special Events"
           ],
           [
-            "Educational Seasonings: An Abundance of Apples",
-            "P.S."
+            "House-Made Salsa Verde",
+            "Special Events"
           ]
         ]
       ],
@@ -631,7 +505,7 @@
             "Ladle & Co."
           ],
           [
-            "Vegetable Chili",
+            "Corn Soup",
             "Ladle & Co."
           ]
         ]
@@ -640,23 +514,23 @@
         "Salads",
         [
           [
-            "Montreal Chicken Salad",
+            "Mediterranean Penne Pasta Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Winter Salad",
+            "Build-Your-Own Roasted Vegetable Salad",
             "Improvisations®"
           ],
           [
-            "Olive Tapenade and Arugula Salad",
+            "Kale Caesar Salad",
             "Improvisations®"
           ],
           [
-            "Macaroni Salad",
+            "Curried Cranberry-Apple Chicken Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Bulgur and Chickpea Salad",
+            "Quinoa, Chickpea, and Sun-Dried Tomato Salad",
             "Improvisations®"
           ]
         ]
@@ -665,23 +539,23 @@
         "Deli",
         [
           [
-            "Ham",
+            "Sweet and Spicy Smoked Chicken Breast",
             "The Classic Cuts Deli®"
           ],
           [
-            "Cheddar Cheese",
+            "Provolone Cheese",
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Red Pepper Hummus",
+            "Roasted Jalapeño-Cilantro Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Garlic-Roasted Beef",
+            "Salami",
             "The Classic Cuts Deli®"
           ],
           [
-            "Swiss Cheese",
+            "American Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -690,23 +564,27 @@
         "Entrées",
         [
           [
-            "Carne Guisada (Mexican Beef and Potato Stew)",
+            "Shredded Chicken Soft Corn Tacos",
             "Free Style™"
           ],
           [
-            "Turkey and Salami on Focaccia",
-            "The Classic Cuts Deli®"
-          ],
-          [
-            "Montreal Rotisserie Chicken Breast",
-            "Improvisations®"
-          ],
-          [
-            "Pollo Guisado (Puerto Rican Chicken Stew)",
+            "Chicken al Pastor",
             "Uncharted"
           ],
           [
-            "Miso-Glazed Tofu",
+            "Chile-Roasted Tofu",
+            "Improvisations®"
+          ],
+          [
+            "Chicken Bao Sandwich",
+            "Trattoria"
+          ],
+          [
+            "Caprese Pesto Panini on Baguette",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Fajita Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -715,23 +593,19 @@
         "Sides and Vegetables",
         [
           [
-            "Nori Seaweed Sushi Sheet",
-            "Seasonings"
-          ],
-          [
-            "Fiesta Rice",
+            "Mexican Rice with Fresh Tomatoes",
             "Free Style™"
           ],
           [
-            "Marinara Sauce",
+            "Steamed Lima Beans",
+            "Free Style™, Trattoria"
+          ],
+          [
+            "Pasta",
             "Trattoria"
           ],
           [
-            "Steamed Cauliflower",
-            "Trattoria"
-          ],
-          [
-            "White Rice",
+            "Sautéed Mexican Green Beans",
             "Uncharted"
           ],
           [
@@ -739,27 +613,19 @@
             "The Classic Cuts Deli®"
           ],
           [
-            "Brownies (GF)",
-            "P.S."
+            "Simmered Pinto Beans",
+            "Uncharted, Free Style™"
           ],
           [
-            "Corn with Bell Pepper and Onion",
-            "Free Style™"
-          ],
-          [
-            "Simmered Charro Beans",
-            "Free Style™"
-          ],
-          [
-            "Pasta",
+            "Marinara Sauce",
             "Trattoria"
           ],
           [
-            "Maduros (Fried Plantains)",
+            "Mexican Rice",
             "Uncharted"
           ],
           [
-            "Seasoned Green Beans",
+            "Flour Tortillas (8 inch)",
             "Uncharted"
           ],
           [
@@ -776,8 +642,16 @@
             "Improvisations®"
           ],
           [
+            "Mini Churros",
+            "P.S."
+          ],
+          [
             "100% Apple Juice",
             "Splashes"
+          ],
+          [
+            "Udi’s® Gluten-Free Snickerdoodle Cookies",
+            "P.S."
           ]
         ]
       ]
@@ -785,14 +659,18 @@
   },
   {
     "tab": "Wed",
-    "name": "Wednesday, October 28",
+    "name": "Wednesday, November 4",
     "stations": [
       [
-        "Today's Menu Features",
+        "Specials",
         [
           [
-            "Cuisine From China",
-            "Uncharted"
+            "Potato Wedge Bar",
+            "Special Events"
+          ],
+          [
+            "Bacon Bits",
+            "Special Events"
           ]
         ]
       ],
@@ -800,11 +678,15 @@
         "Soups",
         [
           [
-            "House-Roasted Chicken and Rice Soup",
+            "Beef and Bean Chili",
+            "Trattoria"
+          ],
+          [
+            "Corn Soup",
             "Ladle & Co."
           ],
           [
-            "Vegetable Chili",
+            "House-Roasted Chicken and Rice Soup",
             "Ladle & Co."
           ]
         ]
@@ -813,23 +695,23 @@
         "Salads",
         [
           [
-            "Montreal Chicken Salad",
+            "Mediterranean Penne Pasta Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Winter Salad",
+            "Build-Your-Own Roasted Vegetable Salad",
             "Improvisations®"
           ],
           [
-            "Olive Tapenade and Arugula Salad",
+            "Kale Caesar Salad",
             "Improvisations®"
           ],
           [
-            "Macaroni Salad",
+            "Curried Cranberry-Apple Chicken Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Bulgur and Chickpea Salad",
+            "Quinoa, Chickpea, and Sun-Dried Tomato Salad",
             "Improvisations®"
           ]
         ]
@@ -838,23 +720,23 @@
         "Deli",
         [
           [
-            "Ham",
+            "Sweet and Spicy Smoked Chicken Breast",
             "The Classic Cuts Deli®"
           ],
           [
-            "Cheddar Cheese",
+            "Provolone Cheese",
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Red Pepper Hummus",
+            "Roasted Jalapeño-Cilantro Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Garlic-Roasted Beef",
+            "Salami",
             "The Classic Cuts Deli®"
           ],
           [
-            "Swiss Cheese",
+            "American Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -863,31 +745,23 @@
         "Entrées",
         [
           [
-            "Honey-Ginger Chicken Thighs",
+            "Grilled Buffalo Chicken Tenders",
             "Free Style™"
           ],
           [
-            "Shaoxing Chicken",
-            "Uncharted"
-          ],
-          [
-            "Turkey and Salami on Focaccia",
+            "Caprese Pesto Panini on Baguette",
             "The Classic Cuts Deli®"
           ],
           [
-            "Montreal Rotisserie Chicken Breast",
+            "Fajita Chicken Breast",
             "Improvisations®"
           ],
           [
-            "Lemon Pepper Chicken Drumsticks",
-            "Trattoria"
+            "Buffalo Chicken Drumsticks",
+            "Craft BBQ"
           ],
           [
-            "Braised Tofu with Edamame",
-            "Uncharted"
-          ],
-          [
-            "Miso-Glazed Tofu",
+            "Chile-Roasted Tofu",
             "Improvisations®"
           ]
         ]
@@ -896,28 +770,36 @@
         "Sides and Vegetables",
         [
           [
-            "Ginger Scallion Rice Noodles",
-            "Uncharted, Free Style™"
+            "Roasted Potatoes",
+            "Craft BBQ, Free Style™"
           ],
           [
             "Marinara Sauce",
             "Trattoria"
           ],
           [
-            "Sweet & Sour Mushroom Stir-Fry (GF)",
-            "Uncharted"
+            "White Rice",
+            "Trattoria"
+          ],
+          [
+            "Roasted Brussels Sprouts",
+            "Craft BBQ"
           ],
           [
             "Strawberry Kiwi Juice",
             "Splashes"
           ],
           [
-            "Vegetable Medley",
+            "Corn on the Cob",
             "Free Style™, Trattoria"
           ],
           [
             "Pasta",
             "Trattoria"
+          ],
+          [
+            "Roasted Buffalo Cauliflower",
+            "Craft BBQ"
           ],
           [
             "Roasted Vegetables",
@@ -942,14 +824,31 @@
   },
   {
     "tab": "Thu",
-    "name": "Thursday, October 29",
+    "name": "Thursday, November 5",
     "stations": [
       [
         "Today's Menu Features",
         [
           [
-            "Cuisine From Jamaica",
+            "Cuisine From Greece",
             "Uncharted"
+          ]
+        ]
+      ],
+      [
+        "Specials",
+        [
+          [
+            "Build-Your-Own Greek Pita Station",
+            "Special Events"
+          ],
+          [
+            "House-Made Greek Dressing",
+            "Special Events"
+          ],
+          [
+            "Zhug (Middle Eastern Hot Sauce)",
+            "Special Events"
           ]
         ]
       ],
@@ -961,7 +860,7 @@
             "Ladle & Co."
           ],
           [
-            "Vegetable Chili",
+            "Corn Soup",
             "Ladle & Co."
           ]
         ]
@@ -970,23 +869,23 @@
         "Salads",
         [
           [
-            "Montreal Chicken Salad",
+            "Mediterranean Penne Pasta Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Winter Salad",
+            "Build-Your-Own Roasted Vegetable Salad",
             "Improvisations®"
           ],
           [
-            "Cucumber, Tomato, and Jicama Salad",
+            "Kale Caesar Salad",
             "Improvisations®"
           ],
           [
-            "Macaroni Salad",
+            "Curried Cranberry-Apple Chicken Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Caribbean Tabbouleh Salad",
+            "Quinoa, Chickpea, and Sun-Dried Tomato Salad",
             "Improvisations®"
           ]
         ]
@@ -995,23 +894,27 @@
         "Deli",
         [
           [
-            "Ham",
-            "The Classic Cuts Deli®"
-          ],
-          [
-            "Cheddar Cheese",
-            "The Classic Cuts Deli®"
-          ],
-          [
-            "Roasted Red Pepper Hummus",
-            "The Classic Cuts Deli®"
-          ],
-          [
             "Garlic-Roasted Beef",
+            "Free Style™"
+          ],
+          [
+            "Salami",
             "The Classic Cuts Deli®"
           ],
           [
-            "Swiss Cheese",
+            "American Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Sweet and Spicy Smoked Chicken Breast",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Provolone Cheese",
+            "The Classic Cuts Deli®"
+          ],
+          [
+            "Roasted Jalapeño-Cilantro Hummus",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -1020,35 +923,27 @@
         "Entrées",
         [
           [
-            "Jamaican Jerk Chicken Wings",
-            "Free Style™"
-          ],
-          [
-            "Jerk Chicken",
-            "Uncharted"
-          ],
-          [
-            "Coconut Rice with Pigeon Peas",
-            "Uncharted"
-          ],
-          [
-            "Miso-Glazed Tofu",
-            "Improvisations®"
-          ],
-          [
-            "Cajun Tilapia with Pineapple Salsa",
+            "Beef Stroganoff with Egg Noodles",
             "Trattoria"
           ],
           [
-            "Jamaican Jerk Tofu with Pepper and Onion",
+            "Tofu Souvlaki",
             "Uncharted"
           ],
           [
-            "Turkey and Salami on Focaccia",
+            "Chile-Roasted Tofu",
+            "Improvisations®"
+          ],
+          [
+            "Chicken Souvlaki",
+            "Uncharted"
+          ],
+          [
+            "Caprese Pesto Panini on Baguette",
             "The Classic Cuts Deli®"
           ],
           [
-            "Montreal Rotisserie Chicken Breast",
+            "Fajita Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -1057,40 +952,36 @@
         "Sides and Vegetables",
         [
           [
-            "White Rice",
-            "Free Style™"
+            "Basmati Rice",
+            "Uncharted, Free Style™"
           ],
           [
             "Marinara Sauce",
             "Trattoria"
           ],
           [
-            "Braised Cabbage",
-            "Trattoria"
-          ],
-          [
-            "Maduros Fritos (Dominican Fried Sweet Plantains)",
+            "Braised Red Cabbage",
             "Uncharted"
           ],
           [
-            "Strawberry Kiwi Juice",
-            "Splashes"
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
           ],
           [
             "Steamed Broccoli",
-            "Free Style™"
+            "Free Style™, Trattoria"
           ],
           [
             "Pasta",
             "Trattoria"
           ],
           [
-            "Ital Rasta Spicy Eggplant",
+            "Grilled Pita Bread",
             "Uncharted"
           ],
           [
-            "Roasted Vegetables",
-            "The Classic Cuts Deli®"
+            "Strawberry Kiwi Juice",
+            "Splashes"
           ]
         ]
       ],
@@ -1111,17 +1002,13 @@
   },
   {
     "tab": "Fri",
-    "name": "Friday, October 30",
+    "name": "Friday, November 6",
     "stations": [
       [
         "Specials",
         [
           [
-            "Mac & Cheese Bar",
-            "Seasonings"
-          ],
-          [
-            "Pizza Condiment Bar",
+            "Popcorn Chicken Dipping Bar",
             "Special Events"
           ]
         ]
@@ -1134,7 +1021,7 @@
             "Ladle & Co."
           ],
           [
-            "Vegetable Chili",
+            "Corn Soup",
             "Ladle & Co."
           ]
         ]
@@ -1143,23 +1030,23 @@
         "Salads",
         [
           [
-            "Montreal Chicken Salad",
+            "Mediterranean Penne Pasta Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Build-Your-Own Winter Salad",
+            "Build-Your-Own Roasted Vegetable Salad",
             "Improvisations®"
           ],
           [
-            "Cucumber, Tomato, and Jicama Salad",
+            "Kale Caesar Salad",
             "Improvisations®"
           ],
           [
-            "Macaroni Salad",
+            "Curried Cranberry-Apple Chicken Salad",
             "The Classic Cuts Deli®"
           ],
           [
-            "Caribbean Tabbouleh Salad",
+            "Quinoa, Chickpea, and Sun-Dried Tomato Salad",
             "Improvisations®"
           ]
         ]
@@ -1168,23 +1055,23 @@
         "Deli",
         [
           [
-            "Ham",
+            "Sweet and Spicy Smoked Chicken Breast",
             "The Classic Cuts Deli®"
           ],
           [
-            "Cheddar Cheese",
+            "Provolone Cheese",
             "The Classic Cuts Deli®"
           ],
           [
-            "Roasted Red Pepper Hummus",
+            "Roasted Jalapeño-Cilantro Hummus",
             "The Classic Cuts Deli®"
           ],
           [
-            "Garlic-Roasted Beef",
+            "Salami",
             "The Classic Cuts Deli®"
           ],
           [
-            "Swiss Cheese",
+            "American Cheese",
             "The Classic Cuts Deli®"
           ]
         ]
@@ -1193,35 +1080,35 @@
         "Entrées",
         [
           [
-            "Rotisserie-Seasoned Chicken Drumsticks",
+            "Rotini with Broccoli (GF)",
             "Free Style™"
           ],
           [
-            "Chicken, Bacon, and Ranch Pizza",
+            "French Bread Pizza",
             "The Main Ingredient®"
           ],
           [
-            "Grilled Swedish Spareribs",
+            "Popcorn Chicken",
             "Trattoria"
           ],
           [
-            "Miso-Glazed Tofu",
+            "Chile-Roasted Tofu",
             "Improvisations®"
           ],
           [
-            "Cheese Pizza",
+            "Grilled Chicken Breast",
+            "Free Style™"
+          ],
+          [
+            "French Bread Pepperoni Pizza",
             "The Main Ingredient®"
           ],
           [
-            "Cheese Pizza (GF)",
-            "The Main Ingredient®"
-          ],
-          [
-            "Turkey and Salami on Focaccia",
+            "Caprese Pesto Panini on Baguette",
             "The Classic Cuts Deli®"
           ],
           [
-            "Montreal Rotisserie Chicken Breast",
+            "Fajita Chicken Breast",
             "Improvisations®"
           ]
         ]
@@ -1230,7 +1117,7 @@
         "Sides and Vegetables",
         [
           [
-            "Assorted Roasted Vegetables",
+            "Steamed Green Beans",
             "The Main Ingredient®, Free Style™"
           ],
           [
@@ -1238,24 +1125,20 @@
             "Trattoria"
           ],
           [
-            "Italian-Grilled Squash",
-            "Trattoria"
+            "Roasted Vegetables",
+            "The Classic Cuts Deli®"
           ],
           [
-            "Strawberry Kiwi Juice",
-            "Splashes"
-          ],
-          [
-            "Rosemary-Garlic Roasted Potatoes",
-            "Free Style™"
+            "Assorted Roasted Vegetables",
+            "Free Style™, Trattoria"
           ],
           [
             "Pasta",
             "Trattoria"
           ],
           [
-            "Roasted Vegetables",
-            "The Classic Cuts Deli®"
+            "Strawberry Kiwi Juice",
+            "Splashes"
           ]
         ]
       ],
@@ -1267,7 +1150,7 @@
             "Improvisations®"
           ],
           [
-            "Brownie Ice Cream Sundaes",
+            "Chocolate Chip Cookies",
             "P.S."
           ],
           [
@@ -1379,8 +1262,6 @@
   var nextBtn = document.getElementById("next");
   var current = 0;
 
-  var regsLink = document.getElementById("regs-link");
-  if (REGS_URL) { regsLink.href = REGS_URL; regsLink.hidden = false; }
 
   function update() {
     var y = window.scrollY + window.innerHeight * 0.35;
@@ -1408,4 +1289,5 @@
 </script>
 
 </body>
+</html>
 </html>
